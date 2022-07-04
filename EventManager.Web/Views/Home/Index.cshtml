@@ -1,0 +1,27 @@
+﻿@model UpcomingEventsViewModel
+
+<section>
+    <header class="row mb-3">
+        <h3 class="col">@Model.Heading</h3>
+    </header>
+    <div class='row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-3 g-3'>
+        @foreach (EventPreviewViewModel Event in Model.Events)
+        {
+            <div class="col event">
+                <article class="card">
+                    <pre>image here</pre>
+                    <div class="card-body">
+                        <h5 class="card-title">@Event.Name</h5>
+                        <p class="mb-1"><strong>@Event.DateRange</strong></p>
+                        <p class="mb-1"><strong>@Event.TimeRange</strong></p>
+                        <p class="card-text">@Event.Excerpt</p>
+                        <div class="row">
+                            <span class="col my-auto">@string.Format("{0}: from {1}", Event.Status, Event.LowestPrice)</span>
+                            <span class="col-auto"><a href="@Event.EventUrl" class="btn btn-outline-primary rounded-pill px-4">View event</a></span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        }
+    </div>
+</section>
