@@ -17,7 +17,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         return View(
-            new UpcomingEventsViewModel("Upcoming Events",
+            new UpcomingEventsViewModel(
                 new[]
                 {
                     new EventPreviewViewModel(

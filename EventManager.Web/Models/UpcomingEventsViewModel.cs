@@ -3,9 +3,9 @@ namespace EventManager.Web.Models
 {
 	public class UpcomingEventsViewModel
 	{
-		public UpcomingEventsViewModel(string heading, IEnumerable<EventPreviewViewModel> events)
+		public UpcomingEventsViewModel(IEnumerable<EventPreviewViewModel> events)
 		{
-			this.Heading = heading;
+			this.Heading = "Upcoming Events";
 			this.Events = events;
 		}
 
