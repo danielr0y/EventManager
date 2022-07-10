@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model AllEventsViewModel
+
+@section hero{
+    <div id="hero-mini" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" class="active"
+                    data-bs-target="#hero" data-bs-slide-to="0"></button>
+            <button type="button"
+                    data-bs-target="#hero" data-bs-slide-to="1"></button>
+            <button type="button"
+                    data-bs-target="#hero" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div style="background-image: url('/images/bluesky.jpg');"></div>
+            </div>
+            <div class="carousel-item">
+                <div style="background-image: url('/images/brisbane.jpg')"></div>
+            </div>
+            <div class="carousel-item">
+                <div style="background-image: url('/images/birds.jpg'); background-position: bottom;"></div>
+            </div>
+        </div>
+        <button type="button" class="carousel-control-prev"
+                data-bs-target="#hero" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button type="button" class="carousel-control-next"
+                data-bs-target="#hero" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+}
+
+@section title{@Model.Heading}
+
+@section headerButtons{
+    <div class="col-6 col-md-auto my-auto">
+        <a href="@Url.Action("Create", "Events")" class="btn btn-outline-primary rounded-pill px-4">Create Event</a>
+    </div>
+}
+
+<section>
+    <header class="row mb-3">
+    </header>
+    <div class='row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-3 g-3'>
+        @foreach (EventPreviewViewModel Event in Model.Events)
+        {
+            <div class="col event">
+                <article class="card">
+                    <a href="@Url.Action("Event", "Events", Event.Name)" class="card-image"
+                    style="background-image: url('@Event.Image'); background-position: top;"></a>
+                    <div class="card-body">
+                        <a href="@Url.Action("Event", "Events", Event.Name)">
+                            <h5 class="card-title">@Event.Name</h5>
+                        </a>
+                        <p class="mb-1"><strong>@Event.DateRange</strong></p>
+                        <p class="mb-1"><strong>@Event.TimeRange</strong></p>
+                        <p class="card-text">@Event.Excerpt</p>
+                        <div class="row">
+                            <span class="col my-auto">@string.Format("{0}: from {1}", Event.Status, Event.LowestPrice)</span>
+                            <span class="col-auto"><a href="@Url.Action("Event", "Events", Event.Name)"
+                                                    class="btn btn-outline-primary rounded-pill px-4">View event</a></span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        }
+    </div>
+</section>
