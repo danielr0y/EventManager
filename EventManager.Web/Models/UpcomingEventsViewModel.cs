@@ -3,14 +3,14 @@ namespace EventManager.Web.Models
 {
 	public class UpcomingEventsViewModel
 	{
-		public UpcomingEventsViewModel(IEnumerable<EventPreviewViewModel> events)
+		public UpcomingEventsViewModel(EventPreviewViewModel[] events)
 		{
 			this.Heading = "Upcoming Events";
 			this.Events = events;
 		}
 
         public string Heading { get; }
-        public IEnumerable<EventPreviewViewModel> Events { get; }
+        public EventPreviewViewModel[] Events { get; }
     }
 }
 

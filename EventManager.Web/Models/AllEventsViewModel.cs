@@ -3,14 +3,14 @@ namespace EventManager.Web.Models
 {
 	public class AllEventsViewModel
 	{
-		public AllEventsViewModel(IEnumerable<EventPreviewViewModel> events)
+		public AllEventsViewModel(EventPreviewViewModel[] events)
 		{
 			this.Heading = "All Events";
 			this.Events = events;
 		}
 
         public string Heading { get; }
-        public IEnumerable<EventPreviewViewModel> Events { get; }
+        public EventPreviewViewModel[] Events { get; }
     }
 }
 
