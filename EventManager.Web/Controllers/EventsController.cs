@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +16,9 @@ namespace EventManager.Web.Controllers
         {
             return View(
                 new AllEventsViewModel(
+                    true,
+                    false,
+                    Array.Empty<MessageViewModel>(),
                     new[]
                     {
                         new EventPreviewViewModel(
@@ -64,6 +67,12 @@ namespace EventManager.Web.Controllers
         {
             return View(
                 new EventViewModel(
+                    true,
+                    false,
+                    new[]
+                    {
+                        new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
+                    },
                     "Sirromet Wine and Dine",
                     "Gastronomy",
                     "Three nights a week for 4 weeks over Spring, The Wheel of Brisbane and Sirromet are teaming up to bring you and your partner a dining experience like no other. Leave the kids with uncle Bob and treat your partner to the romantic dinner for two they've been dreaming of.",

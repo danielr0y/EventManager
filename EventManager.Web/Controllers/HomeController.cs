@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 using EventManager.Web.Models;
@@ -18,6 +18,9 @@ public class HomeController : Controller
     {
         return View(
             new UpcomingEventsViewModel(
+                true,
+                false,
+                Array.Empty<MessageViewModel>(),
                 new[]
                 {
                     new EventPreviewViewModel(

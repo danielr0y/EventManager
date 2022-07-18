@@ -1,12 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@model ILayoutViewModel
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Wheel of Brisbane Event Manager</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/EventManager.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="/css/unbootstrapify.css">
 </head>
 <body>
@@ -16,11 +16,54 @@
                 <div class="navbar-nav flex-row gap-3">
                     <a class="nav-link" href="@Url.Action("index", "home")">Home</a>
                     <a class="nav-link" href="@Url.Action("index", "events")">Events</a>
-                    <a class="nav-link" href="@Url.Action("index", "bookings")">My Bookings</a>
-                    <a class="nav-link" href="@Url.Action("register", "auth")}">Register</a>
-                    <a class="nav-link" href="@Url.Action("get", "accounts")">Accounts</a>
+                    @if (Model.IsAuthenticated)
+                    {
+                        @if (Model.IsAdmin)
+                        {
+                            <a class="nav-link" href="@Url.Action("get", "accounts")">Accounts</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="@Url.Action("index", "bookings")">My Bookings</a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="nav-link" href="@Url.Action("register", "auth")}">Register</a>
+                    }
+                </div>
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarlogin">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse flex-grow-0" id="navbarlogin">
+                    @if (Model.IsAuthenticated)
+                    {
+                        <form action="@Url.Action("Logout", "Auth")" class="navbar-nav flex-row gap-1">
+                            <button class="btn btn-outline-primary rounded-pill px-5" type="submit">Logout</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="POST" action="@Url.Action("Login", "Auth")" class="navbar-nav flex-row gap-1">
+                            <input name="email" type="text" required
+                                   class="form-control" placeholder="email address">
+                            <input name="password" type="password" required
+                                   class="form-control" placeholder="password">
+                            <button class="btn btn-outline-success rounded-pill px-5" type="submit">Login</button>
+                        </form>
+                    }
                 </div>
             </nav>
+            @if (Model.Messages.Length >= 0)
+            {
+                <div>
+                @foreach (MessageViewModel message in Model.Messages)
+                {
+                    <div class="alert alert-@message.Category">@message.Body</div>
+                }
+                </div>
+            }
             @RenderSection("hero", false)
         </header>
         <main role="main" class="">

@@ -1,10 +1,14 @@
-﻿
+
 namespace EventManager.Web.Models
 {
-	public class EventViewModel
+	public class EventViewModel : ILayoutViewModel
 	{
-		public EventViewModel(string name, string category, string description, string status, string image, TicketTableViewModel ticketTable)
+        public EventViewModel(bool isAuthenticated, bool isAdmin, MessageViewModel[] messages, string name, string category, string description, Status status, string image, TicketTableViewModel ticketTable, ReviewViewModel[] reviews)
 		{
+            this.IsAuthenticated = isAuthenticated;
+            this.IsAdmin = isAdmin;
+            this.Messages = messages;
+
 			this.Name = name;
 			this.Category = category;
 			this.Description = description;
@@ -14,6 +18,10 @@ namespace EventManager.Web.Models
             this.Image = string.Format("/images/{0}", image);
             this.TicketTable = ticketTable;
 		}
+
+        public bool IsAuthenticated { get; }
+        public bool IsAdmin { get; }
+        public MessageViewModel[] Messages { get; }
 
         public string Name { get; }
         public string Category { get; }
