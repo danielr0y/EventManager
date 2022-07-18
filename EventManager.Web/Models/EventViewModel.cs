@@ -1,24 +1,33 @@
+﻿
+using EventManager.DomainLayer;
 
 namespace EventManager.Web.Models
 {
 	public class EventViewModel : ILayoutViewModel
-	{
+    {
+        /* a few questions here.
+         * 
+         * is this an example of contructor over injection?
+         * should I be sending full objects to this viewModel and then removing what I need? eg.) IUserContext.IsAdmin? or do I just ask for what I need– bool IsAdmin?
+         * the later is what gives me so many arguements
+         */
         public EventViewModel(bool isAuthenticated, bool isAdmin, MessageViewModel[] messages, string name, string category, string description, Status status, string image, TicketTableViewModel ticketTable, ReviewViewModel[] reviews)
-		{
+        {
             this.IsAuthenticated = isAuthenticated;
             this.IsAdmin = isAdmin;
             this.Messages = messages;
 
-			this.Name = name;
+            this.Name = name;
 			this.Category = category;
 			this.Description = description;
             this.DateRange = "a range of dates";
             this.TimeRange = "a range of times";
-			this.Status = status;
+			this.EventStatus = status.ToString();
+            this.IsUpcoming = (status == Status.Upcoming);
             this.Image = string.Format("/images/{0}", image);
             this.TicketTable = ticketTable;
             this.Reviews = reviews;
-		}
+        }
 
         public bool IsAuthenticated { get; }
         public bool IsAdmin { get; }
@@ -30,7 +39,8 @@ namespace EventManager.Web.Models
         public string DateRange { get; }
         public string TimeRange { get; }
         public decimal PricedFrom { get; }
-        public string Status { get; }
+        public string EventStatus { get; }
+        public bool IsUpcoming { get; }
         public string Image { get; }
         public TicketTableViewModel TicketTable { get; }
         public ReviewViewModel[] Reviews { get; }

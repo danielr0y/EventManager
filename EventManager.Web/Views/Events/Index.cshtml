@@ -1,4 +1,4 @@
-@model AllEventsViewModel
+﻿@model AllEventsViewModel
 
 @section hero{
     <div id="hero-mini" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -37,9 +37,12 @@
 @section title{@Model.Heading}
 
 @section headerButtons{
-    <div class="col-6 col-md-auto my-auto">
-        <a href="@Url.Action("Create", "Events")" class="btn btn-outline-primary rounded-pill px-4">Create Event</a>
-    </div>
+    @if (Model.IsAuthenticated && Model.IsAdmin)
+    {
+        <div class="col-6 col-md-auto my-auto">
+            <a href="@Url.Action("Create", "Events")" class="btn btn-outline-primary rounded-pill px-4">Create Event</a>
+        </div>
+    }
     <div class="col-6 col-md-auto my-auto">
         <form method="GET" action="@Url.Action("Index", "Events")" class="d-flex flex-row gap-1 col-auto my-auto">
             <input id="search" type="text" name="search" value="" class="form-control w-auto" placeholder="search for events">
@@ -57,29 +60,39 @@
 
 <section>
     <header class="row mb-3">
+        <h3 class="col">what is this one?</h3>
     </header>
     <div class='row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-3 g-3'>
-        @foreach (EventPreviewViewModel Event in Model.Events)
+        @if (Model.Events.Length == 0)
         {
-            <div class="col event">
-                <article class="card">
-                    <a href="@Url.Action("Event", "Events", Event.Name)" class="card-image"
-                    style="background-image: url('@Event.Image'); background-position: top;"></a>
-                    <div class="card-body">
-                        <a href="@Url.Action("Event", "Events", Event.Name)">
-                            <h5 class="card-title">@Event.Name</h5>
-                        </a>
-                        <p class="mb-1"><strong>@Event.DateRange</strong></p>
-                        <p class="mb-1"><strong>@Event.TimeRange</strong></p>
-                        <p class="card-text">@Event.Excerpt</p>
-                        <div class="row">
-                            <span class="col my-auto">@string.Format("{0}: from {1}", Event.Status, Event.LowestPrice)</span>
-                            <span class="col-auto"><a href="@Url.Action("Event", "Events", Event.Name)"
-                                                    class="btn btn-outline-primary rounded-pill px-4">View event</a></span>
+            <p>Your search returned no results. <a href="@Url.Action("Index", "Events")">Go back to all events</a></p>
+        }
+        else
+        {
+            @foreach (EventPreviewViewModel Event in Model.Events)
+            {
+                <div class="col event">
+                    <article class="card">
+                        <a href="@Url.Action("Event", "Events", Event.Name)" class="card-image"
+                           style="background-image: url('@Event.Image');"></a>
+                        <div class="card-body">
+                            <a href="@Url.Action("Event", "Events", Event.Name)">
+                                <h5 class="card-title">@Event.Name</h5>
+                            </a>
+                            <p class="mb-1"><strong>@Event.DateRange</strong></p>
+                            <p class="mb-1"><strong>@Event.TimeRange</strong></p>
+                            <p class="card-text">@Event.Excerpt</p>
+                            <div class="row">
+                                <span class="col my-auto">@string.Format("from ${0}", Event.LowestPrice)</span>
+                                <span class="col-auto">
+                                    <a href="@Url.Action("Event", "Events", Event.Name)"
+                                       class="btn btn-outline-@Event.UIColor rounded-pill px-4">@Event.ButtonText</a>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </article>
-            </div>
+                    </article>
+                </div>
+            }
         }
     </div>
 </section>

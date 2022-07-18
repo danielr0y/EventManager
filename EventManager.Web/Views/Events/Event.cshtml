@@ -1,4 +1,4 @@
-@model EventViewModel
+﻿@model EventViewModel
 
 @section hero{
     <div id="minihero" style="background-image: url('@Model.Image');"></div>
@@ -7,13 +7,15 @@
 @section title{@Model.Name}
 
 @section headerButtons{
+    @if ( Model.IsAuthenticated && Model.IsAdmin )
+    {
         <div class="col-sm-auto my-auto">
             <a href="@Url.Action("Create", "Events")" class="btn btn-outline-primary rounded-pill px-5">Update</a>
         </div>
-
         <div class="col-sm-auto my-auto">
             <a href="@Url.Action("Delete", "Events")" class="btn btn-outline-primary rounded-pill px-5">Delete</a>
         </div>
+    }
 }
 
 <section>
@@ -22,8 +24,7 @@
 <section class="mb-3">@Model.Description</section>
 <section>
     <header class="row mb-3">
-        <h3 class="col">Dates and times</h3>
-        <span class="col-sm-auto ms-auto my-auto">@Model.Status</span>
+        <h2 class="col">Dates and times</h2>
     </header>
     <div class="row mb-3">
         <div class="col-sm">
@@ -33,31 +34,39 @@
             <p class="mb-1">@Model.TimeRange</p>
         </div>
         <div class="col-sm">
-            <p>@string.Format("From: {0}", Model.PricedFrom)</p>
+            <p>@string.Format("From: ${0}", Model.PricedFrom)</p>
         </div>
         <div class="col-sm-auto my-auto">
-                <button type="button" class="btn btn-outline-muted rounded-pill px-5" 
-                        disabled">@Model.Status</button>
+            @if ( ! Model.IsUpcoming)
+            {
+                <button type="button" class="btn btn-outline-muted rounded-pill px-5"
+                        disabled">@Model.EventStatus</button>
+            }
+            else if (Model.IsAuthenticated)
+            {
+                <button type="button" class="btn btn-outline-primary rounded-pill px-5"
+                        data-bs-toggle="modal" data-bs-target="#book">Book now</button>
+            }
+            else
+            {
                 <button type="button" class="btn btn-outline-muted rounded-pill px-5"
                         data-bs-toggle="tooltip" data-bs-placement="top"
                         title="You must be logged in to book tickets">Book now</button>
-                <button type="button" class="btn btn-outline-primary rounded-pill px-5"
-                        data-bs-toggle="modal" data-bs-target="#book">Book now</button>
+            }
         </div>
     </div>
     <div id="book" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-lg">
             <form class="modal-content" method="POST" action="@Url.Action("Book", "Events")">
                 <div class="modal-header">
-                    <h5 id="staticBackdropLabel" class="modal-title">Book your tickets to @Model.Name on the Wheel of Brisbane</h5>
+                    <h3 id="staticBackdropLabel" class="modal-title">Book your tickets to @Model.Name</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <fieldset class="row row-cols-3 mb-3 btn-group g-2 gx-lg-5">
+                    <fieldset class="row @string.Format("row-cols-{0}", Model.TicketTable.Width) mb-3 btn-group g-2 gx-lg-5">
                         <legend class="col-12 col-lg">Dates and times</legend>
                         <span class="col-12 col-lg-auto my-auto">Prices listed are per gondola. Max 6 people</span>
                         <div class="w-100"></div>
-                        <!-- times header -->
                         <div class="col"></div>
                         @foreach (TicketTableTimeCellViewModel time in @Model.TicketTable.TimeRow.Times)
                         {
@@ -65,7 +74,6 @@
                                 <label class="btn btn-light rounded-pill w-100">@time.Time</label>
                             </div>
                         }
-                        <!-- new date row -->
                         @foreach (TicketTableDateRowViewModel dateRow in @Model.TicketTable.DateRows)
                         {
                             <div class="col">
@@ -74,15 +82,19 @@
                             @foreach (TicketTableTicketCellViewModel ticket in @dateRow.Tickets)
                             {
                                 <div class="col">
-                                    @if ( ticket.Remaining <= 0 )
+                                    @if (ticket.Remaining <= 0)
                                     {
-                                        <label class="btn btn-outline-muted rounded-pill w-100">@string.Format("${0}", ticket.Price)</label>
-                                    }else
+                                        <label class="btn btn-outline-muted rounded-pill w-100">
+                                            @string.Format("${0}", ticket.Price)
+                                        </label>
+                                    }
+                                    else
                                     {
-                                        <input id="@string.Format("ticket-{0}", ticket.Id)" class="btn-check" type="radio"
-                                                name="ticket" value="@ticket.Id" required 
-                                                data-price="@ticket.Price" data-remaining="@ticket.Remaining" >
-                                        <label for="@string.Format("ticket-{0}", ticket.Id)" class="btn btn-outline-success rounded-pill w-100">@string.Format("${0}", ticket.Price)</label>
+                                        <input id="@string.Format("ticket-{0}", ticket.Id)" class="btn-check"
+                                               type="radio" name="ticket" value="@ticket.Id"
+                                               data-price="@ticket.Price" data-remaining="@ticket.Remaining">
+                                        <label for="@string.Format("ticket-{0}", ticket.Id)"
+                                               class="btn btn-outline-success rounded-pill w-100">@string.Format("${0}", ticket.Price)</label>
                                     }
                                 </div>
                             }
@@ -93,7 +105,7 @@
                         <span class="">Up to 6 passengers may ride together in one gondola. You may, however, reserve as many extra gondolas for your group as you please.</span>
 
                         <div class="col text-end">
-                            <label for="people">number of people</label>
+                            <label for="people">Number of Passengers</label>
                         </div>
                         <div class="col-auto">
                             <div class="btn-group counter">
@@ -106,29 +118,34 @@
                             </div>
                         </div>
                         <div class="w-100"></div>
+                        <div class="col text-end">
+                            <label for="qty">Number of Gondolas</label>
+                        </div>
                         <div class="col-auto">
                             <div class="btn-group counter">
-                                <button type="button" disabled
-                                        class="btn btn-success rounded-pill rounded-end minus">-</button>
-                                <button type="button" disabled
-                                        class="btn btn-success rounded-pill rounded-start plus">+</button>
+                                <button type="button" class="btn btn-success rounded-pill rounded-end minus" disabled>-</button>
+                                <input id="qty" type="number" name="qty" value="1" min="1" max="42" step="1" required
+                                       class="rounded-0 border-success border-start-0 border-end-0 form-control text-center shadow-none">
+                                <button type="button" class="btn btn-success rounded-pill rounded-start plus" disabled>+</button>
                             </div>
                         </div>
                         <div id="remainingWarning" class="w-100 text-end"></div>
                         <div class="col my-auto text-end">
-                            <label for="price">price</label>
+                            <label for="price">Price</label>
                         </div>
                         <div class="col-auto">
                             <div class="btn-group counter">
                                 <span class="btn btn-success rounded-pill rounded-end">$</span>
+                                <input id="price" type="number" value="0" min="0" step="1" readonly
+                                       class="rounded-0 border-success border-start-0 border-end-0 form-control text-center shadow-none bg-white">
                                 <span class="btn btn-success rounded-pill rounded-start">.00</span>
                             </div>
                         </div>
                     </fieldset>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary rounded-pill px-5"
-                            data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-5" data-bs-dismiss="modal">Cancel</button>
+                    <input id="submit" type="submit" name="submit" value="Book now" class="btn btn-success rounded-pill px-5">
                 </div>
             </form>
         </div>
@@ -139,27 +156,27 @@
     @if ( Model.IsAuthenticated )
     {
         <form id="review" class="row mb-3" method="POST" action="@Url.Action("Review", "Events")">
-        <div class="col">
-            <div class="form-floating">
+            <div class="col">
+                <div class="form-floating">
                     <textarea id="text" name="text" class="form-control" placeholder="Write a review" required></textarea>
                     <label for="text">Review</label>
+                </div>
             </div>
-        </div>
-        <div class="col-auto my-auto">
+            <div class="col-auto my-auto">
                 <input id="submit" type="submit" name="submit" value="Post review" class="btn btn-outline-success rounded-pill px-5">
-        </div>
-    </form>
+            </div>
+        </form>
     }
     <div id="reviews">
         @foreach ( ReviewViewModel review in Model.Reviews )
         {
-        <div class="row border-top pt-3">
-            <article>
+            <div class="row border-top pt-3">
+                <article>
                     <strong>@review.Name</strong>
                     <i>@review.DateTime</i>
                     <p>@review.Text</p>
-            </article>
-        </div>
+                </article>
+            </div>
         }
     </div>
 </section>

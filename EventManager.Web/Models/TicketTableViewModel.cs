@@ -1,4 +1,4 @@
-
+﻿
 namespace EventManager.Web.Models
 {
 	public class TicketTableViewModel
@@ -7,10 +7,12 @@ namespace EventManager.Web.Models
 		{
 			this.TimeRow = timeRow;
 			this.DateRows = dateRows;
+			this.Width = this.TimeRow.Times.Length + 1;
 		}
 
         public TicketTableTimeRowViewModel TimeRow { get; }
         public TicketTableDateRowViewModel[] DateRows { get; }
+        public int Width { get; }
     }
 }
 
