@@ -134,7 +134,35 @@ namespace EventManager.Web.Controllers
                                 }
                             ),
                         }
-                    )
+                    ),
+                    new[]
+                    {
+                        new ReviewViewModel(
+                            "Simbro",
+                            new DateTime(),
+                            "Was sick, eh."
+                        ),
+                        new ReviewViewModel(
+                            "Simbro",
+                            new DateTime(),
+                            "Was sick, eh."
+                        ),
+                        new ReviewViewModel(
+                            "Simbro",
+                            new DateTime(),
+                            "Was sick, eh."
+                        ),
+                        new ReviewViewModel(
+                            "Simbro",
+                            new DateTime(),
+                            "Was sick, eh."
+                        ),
+                        new ReviewViewModel(
+                            "Simbro",
+                            new DateTime(),
+                            "Was sick, eh."
+                        ),
+                    }
                 )
             );
         }

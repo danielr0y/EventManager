@@ -17,6 +17,7 @@ namespace EventManager.Web.Models
 			this.Status = status;
             this.Image = string.Format("/images/{0}", image);
             this.TicketTable = ticketTable;
+            this.Reviews = reviews;
 		}
 
         public bool IsAuthenticated { get; }
@@ -32,6 +33,7 @@ namespace EventManager.Web.Models
         public string Status { get; }
         public string Image { get; }
         public TicketTableViewModel TicketTable { get; }
+        public ReviewViewModel[] Reviews { get; }
     }
 }
 

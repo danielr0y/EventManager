@@ -135,19 +135,31 @@
     </div>
 </section>
 <section>
-    <header><h2>Reviews</h3></header>
-    <form id="review" class="row mb-3" method="POST" action="@* url_for('events.review', id=event.id) *@">
+    <header><h2>Reviews</h2></header>
+    @if ( Model.IsAuthenticated )
+    {
+        <form id="review" class="row mb-3" method="POST" action="@Url.Action("Review", "Events")">
         <div class="col">
             <div class="form-floating">
+                    <textarea id="text" name="text" class="form-control" placeholder="Write a review" required></textarea>
+                    <label for="text">Review</label>
             </div>
         </div>
         <div class="col-auto my-auto">
+                <input id="submit" type="submit" name="submit" value="Post review" class="btn btn-outline-success rounded-pill px-5">
         </div>
     </form>
+    }
     <div id="reviews">
+        @foreach ( ReviewViewModel review in Model.Reviews )
+        {
         <div class="row border-top pt-3">
             <article>
+                    <strong>@review.Name</strong>
+                    <i>@review.DateTime</i>
+                    <p>@review.Text</p>
             </article>
         </div>
+        }
     </div>
 </section>
