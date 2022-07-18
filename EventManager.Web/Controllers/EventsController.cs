@@ -57,6 +57,15 @@ namespace EventManager.Web.Controllers
                             "100",
                             "#"
                         ),
+                    },
+                    "Fireworks",
+                    new[]
+                    {
+                        "All Categories",
+                        "Fireworks",
+                        "Fundraiser",
+                        "Gastronomy",
+                        "Romantic"
                     }
                 )
             );

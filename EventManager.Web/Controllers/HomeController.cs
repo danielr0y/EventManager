@@ -50,6 +50,15 @@ public class HomeController : Controller
                         "100",
                         "#"
                     ),
+                },
+                "All Categories",
+                new[]
+                {
+                    "All Categories",
+                    "Fireworks",
+                    "Fundraiser",
+                    "Gastronomy",
+                    "Romantic"
                 }
             )
         );

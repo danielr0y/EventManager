@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 namespace EventManager.Web.Models
 {
 	public class UpcomingEventsViewModel : ILayoutViewModel
-	{
+    {
 		public UpcomingEventsViewModel(bool isAuthenticated, bool isAdmin, MessageViewModel[] messages, EventPreviewViewModel[] events, string category, string[] Categories)
 		{
             this.IsAuthenticated = isAuthenticated;
@@ -11,6 +11,8 @@ namespace EventManager.Web.Models
 
 			this.Heading = "Upcoming Events";
 			this.Events = events;
+            this.Category = category;
+            this.Categories = Categories;
 		}
 
         public bool IsAuthenticated { get; }
@@ -19,6 +21,8 @@ namespace EventManager.Web.Models
 
         public string Heading { get; }
         public EventPreviewViewModel[] Events { get; }
+        public string Category { get; }
+        public string[] Categories { get; }
     }
 }
 
