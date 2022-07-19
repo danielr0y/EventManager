@@ -24,6 +24,7 @@ namespace EventManager.Web.Models
             this.TimeRange = "a range of times";
 			this.EventStatus = status.ToString();
             this.IsUpcoming = (status == Status.Upcoming);
+            this.UIColor = UI.GetColorByStatus(status).ToString();
             this.Image = string.Format("/images/{0}", image);
             this.TicketTable = ticketTable;
             this.Reviews = reviews;
@@ -41,6 +42,7 @@ namespace EventManager.Web.Models
         public decimal PricedFrom { get; }
         public string EventStatus { get; }
         public bool IsUpcoming { get; }
+        public string UIColor { get; }
         public string Image { get; }
         public TicketTableViewModel TicketTable { get; }
         public ReviewViewModel[] Reviews { get; }
