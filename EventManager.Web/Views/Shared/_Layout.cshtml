@@ -55,7 +55,7 @@
                     }
                 </div>
             </nav>
-            @if (Model.Messages.Length >= 0)
+            @if (Model.Messages.Length > 0)
             {
                 <div>
                 @foreach (MessageViewModel message in Model.Messages)

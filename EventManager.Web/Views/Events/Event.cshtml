@@ -168,15 +168,22 @@
         </form>
     }
     <div id="reviews">
-        @foreach ( ReviewViewModel review in Model.Reviews )
+        @if (Model.Reviews.Length == 0)
         {
-            <div class="row border-top pt-3">
-                <article>
-                    <strong>@review.Name</strong>
-                    <i>@review.DateTime</i>
-                    <p>@review.Text</p>
-                </article>
-            </div>
+            <p>Be the first to review this event!</p>
+        }
+        else
+        {
+            @foreach (ReviewViewModel review in Model.Reviews)
+            {
+                <div class="row border-top pt-3">
+                    <article>
+                        <strong>@review.Name</strong>
+                        <i>@review.DateTime</i>
+                        <p>@review.Text</p>
+                    </article>
+                </div>
+            }
         }
     </div>
 </section>
