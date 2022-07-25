@@ -4,19 +4,19 @@ namespace EventManager.Web.Models
 {
     public class EventPreviewViewModel
     {
-        public EventPreviewViewModel(String name, String dateRange, String timeRange, String excerpt, Status status, decimal lowestPrice, String image)
+        public EventPreviewViewModel(Event Event)
         {
-            bool isUpcoming = (status == Status.Upcoming);
+            bool isUpcoming = (Event.Status == Status.Upcoming);
 
-            this.Name = name;
-            this.DateRange = dateRange;
-            this.TimeRange = timeRange;
-            this.Excerpt = excerpt;
-            this.EventStatus = status.ToString();
-            this.UIColor = UI.GetColorByStatus(status).ToString();
-            this.LowestPrice = lowestPrice.ToString();
-            this.ButtonText = isUpcoming ? "View Event" : this.EventStatus;
-            this.Image = string.Format("/images/{0}", image);
+            this.Name = Event.Name;
+            this.DateRange = Event.GetDateRange();
+            this.TimeRange = Event.GetTimeRange();
+            this.Excerpt = Event.Excerpt;
+            this.EventStatus = Event.Status.ToString();
+            this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
+            this.LowestPrice = Event.GetLowestPrice().ToString();
+            this.ButtonText = isUpcoming ? "View Event" : Event.Status.ToString();
+            this.Image = string.Format("/images/{0}", Event.Image);
         }
 
         public String Name { get; }

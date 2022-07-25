@@ -1,31 +1,37 @@
 ﻿using System;
 namespace EventManager.Web.Models
 {
-	public class AllEventsViewModel : ILayoutViewModel
+	public class AllEventsViewModel : ILayoutViewModel, ISearchPartialViewModel
     {
-		public AllEventsViewModel(bool isAuthenticated, bool isAdmin, IEnumerable<MessageViewModel> messages, IEnumerable<EventPreviewViewModel> events, string category, IEnumerable<string> categories)
+		public AllEventsViewModel(ILayoutViewModel layoutViewModel, ISearchPartialViewModel searchPartialViewModel, IEnumerable<EventPreviewViewModel> events)
         {
-            this.IsAuthenticated = isAuthenticated;
-            this.IsAdmin = isAdmin;
-            this.Messages = messages;
+            this.IsAuthenticated = layoutViewModel.IsAuthenticated;
+            this.IsAdmin = layoutViewModel.IsAdmin;
+            this.Messages = layoutViewModel.Messages;
+            this.NumberOfMessages = layoutViewModel.NumberOfMessages;
 
-			this.Heading = "All Events";
+            this.Category = searchPartialViewModel.Category;
+            this.Categories = searchPartialViewModel.Categories;
+            this.NumberOfCategories = searchPartialViewModel.NumberOfCategories;
+
+            this.Heading = "All Events";
 			this.Events = events;
-			this.Category = category;
-			this.Categories = categories;
         }
-
+        // ILayoutViewModel
         public bool IsAuthenticated { get; }
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
-        public int NumberOfMessages { get { return this.Messages.Count(); } }
+        public int NumberOfMessages { get; }
 
+        // ISearchPartialView
+        public string Category { get; }
+        public IEnumerable<string> Categories { get; }
+        public int NumberOfCategories { get; }
+
+        // this
         public string Heading { get; }
         public IEnumerable<EventPreviewViewModel> Events { get; }
         public int NumberOfEvents { get { return this.Events.Count(); } }
-        public string Category { get; }
-        public IEnumerable<string> Categories { get; }
-        public int NumberOfCategories { get { return this.Categories.Count(); } }
     }
 }
 

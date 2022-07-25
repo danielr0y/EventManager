@@ -1,0 +1,16 @@
+﻿@model ISearchPartialViewModel
+
+<form method="GET" action="@Url.Action("Index", "Events")" class="d-flex flex-row gap-1 col-auto my-auto">
+    <input id="search" type="text" name="search" value="" placeholder="search for events" class="form-control w-auto">
+    @if (Model.NumberOfCategories > 0)
+    {
+        <select id="category" name="category" class="form-select rounded-pill ps-4 pe-5">
+            @foreach (string category in Model.Categories)
+            {
+                bool selected = (Model.Category == category);
+                <option value="@category" selected="@selected">@category</option>
+            }
+        </select>
+    }
+    <button class="btn btn-outline-success rounded-pill px-5" type="submit">Search</button>
+</form>

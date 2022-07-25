@@ -5,7 +5,6 @@
         bool IsAuthenticated { get; }
         bool IsAdmin { get; }
         IEnumerable<MessageViewModel> Messages { get; }
-
         int NumberOfMessages { get; }
     }
 }

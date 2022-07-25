@@ -1,31 +1,36 @@
 ﻿using System;
 namespace EventManager.Web.Models
 {
-	public class UpcomingEventsViewModel : ILayoutViewModel
+	public class UpcomingEventsViewModel : ILayoutViewModel, ISearchPartialViewModel
     {
-		public UpcomingEventsViewModel(bool isAuthenticated, bool isAdmin, IEnumerable<MessageViewModel> messages, IEnumerable<EventPreviewViewModel> events, string category, IEnumerable<string> Categories)
-		{
-            this.IsAuthenticated = isAuthenticated;
-            this.IsAdmin = isAdmin;
-            this.Messages = messages;
+		public UpcomingEventsViewModel(ILayoutViewModel layoutViewModel, ISearchPartialViewModel searchPartialViewModel, IEnumerable<EventPreviewViewModel> events)
+        {
+            this.IsAuthenticated = layoutViewModel.IsAuthenticated;
+            this.IsAdmin = layoutViewModel.IsAdmin;
+            this.Messages = layoutViewModel.Messages;
+            this.NumberOfMessages = layoutViewModel.NumberOfMessages;
 
-			this.Heading = "Upcoming Events";
+            this.Category = searchPartialViewModel.Category;
+            this.Categories = searchPartialViewModel.Categories;
+            this.NumberOfCategories = searchPartialViewModel.NumberOfCategories;
+
+            this.Heading = "Upcoming Events";
 			this.Events = events;
-            this.Category = category;
-            this.Categories = Categories;
-		}
-
+        }
+        // ILayoutViewModel
         public bool IsAuthenticated { get; }
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
-        public int NumberOfMessages { get { return this.Messages.Count(); } }
+        public int NumberOfMessages { get; }
 
+        // ISearchPartialView
+        public string Category { get; }
+        public IEnumerable<string> Categories { get; }
+        public int NumberOfCategories { get; }
+
+        // this
         public string Heading { get; }
         public IEnumerable<EventPreviewViewModel> Events { get; }
         public int NumberOfEvents { get { return this.Events.Count(); } }
-        public string Category { get; }
-        public IEnumerable<string> Categories { get; }
-        public int NumberOfCategories { get { return this.Categories.Count(); } }
     }
 }
-

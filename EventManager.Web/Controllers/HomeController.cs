@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 using EventManager.Web.Models;
@@ -19,39 +19,12 @@ public class HomeController : Controller
     {
         return View(
             new UpcomingEventsViewModel(
+                new LayoutViewModel(
                 true,
                 false,
-                Array.Empty<MessageViewModel>(),
-                new[]
-                {
-                    new EventPreviewViewModel(
-                        "Sirromet Wine and Dine",
-                        "from: 30/08/2022 until: 31/08/2022",
-                        "from: 07:00PM until: 08:00PM",
-                        "Three nights a week for 4 weeks over Spring, The Wheel of Brisbane and Sirromet are teaming up to bring you and your partner a dining experience like no other. Leave the kids with uncle Bob and treat your partner to the romantic dinner for two they've been dreaming of.",
-                        Status.Upcoming,
-                        90,
-                        "wine.jpg"
+                    Array.Empty<MessageViewModel>()
                     ),
-                    new EventPreviewViewModel(
-                        "Sunsuper Riverfire",
-                        "on: 25/09/2022",
-                        "at: 10pm and 11:30pm",
-                        "See Australia's most beautiful city in a new light. As another year of celebrations for our great city draw to a close, Sunsuper and Brisbane Festival will light up the night and you'll have the best seats in the house. Riverfront, sky-high and air-conditioned!",
-                        Status.Upcoming,
-                        80,
-                        "fireworks.jpg"
-                    ),
-                    new EventPreviewViewModel(
-                        "New Year's Eve",
-                        "on: 31/12/2022",
-                        "at: 8pm and 11:30pm",
-                        "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
-                        Status.Upcoming,
-                        100,
-                        "newyears.jpg"
-                    ),
-                },
+                new SearchPartialViewModel(
                 "All Categories",
                 new[]
                 {
@@ -60,6 +33,34 @@ public class HomeController : Controller
                     "Fundraiser",
                     "Gastronomy",
                     "Romantic"
+                }
+                ),
+                new[]
+                {
+                    new Event(
+                        "Sirromet Wine and Dine",
+                        "Three nights a week for 4 weeks over Spring, The Wheel of Brisbane and Sirromet are teaming up to bring you and your partner a dining experience like no other. Leave the kids with uncle Bob and treat your partner to the romantic dinner for two they've been dreaming of.",
+                        "description",
+                        "Gastronomy",
+                        Status.Upcoming,
+                        "wine.jpg"
+                    ),
+                    new Event(
+                        "Sunsuper Riverfire",
+                        "See Australia's most beautiful city in a new light. As another year of celebrations for our great city draw to a close, Sunsuper and Brisbane Festival will light up the night and you'll have the best seats in the house. Riverfront, sky-high and air-conditioned!",
+                        "description",
+                        "Fireworks",
+                        Status.Upcoming,
+                        "fireworks.jpg"
+                    ),
+                    new Event(
+                        "New Year's Eve",
+                        "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
+                        "description",
+                        "Fireworks",
+                        Status.Upcoming,
+                        "newyears.jpg"
+                    ),
                 }
             )
         );

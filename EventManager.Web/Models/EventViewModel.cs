@@ -5,36 +5,32 @@ namespace EventManager.Web.Models
 {
 	public class EventViewModel : ILayoutViewModel
     {
-        /* a few questions here.
-         * 
-         * is this an example of contructor over injection?
-         * should I be sending full objects to this viewModel and then removing what I need? eg.) IUserContext.IsAdmin? or do I just ask for what I need– bool IsAdmin?
-         * the later is what gives me so many arguements
-         */
-        public EventViewModel(bool isAuthenticated, bool isAdmin, IEnumerable<MessageViewModel> messages, string name, string category, string description, Status status, string image, TicketTableViewModel ticketTable, IEnumerable<ReviewViewModel> reviews)
+        public EventViewModel(ILayoutViewModel layoutViewModel, Event Event, TicketTableViewModel ticketTable, IEnumerable<ReviewViewModel> reviews)
         {
-            this.IsAuthenticated = isAuthenticated;
-            this.IsAdmin = isAdmin;
-            this.Messages = messages;
+            this.IsAuthenticated = layoutViewModel.IsAuthenticated;
+            this.IsAdmin = layoutViewModel.IsAdmin;
+            this.Messages = layoutViewModel.Messages;
+            this.NumberOfMessages = layoutViewModel.NumberOfMessages;
 
-            this.Name = name;
-			this.Category = category;
-			this.Description = description;
+            this.Name = Event.Name;
+			this.Category = Event.Category;
+			this.Description = Event.Description;
             this.DateRange = "a range of dates";
             this.TimeRange = "a range of times";
-			this.EventStatus = status.ToString();
-            this.IsUpcoming = (status == Status.Upcoming);
-            this.UIColor = UI.GetColorByStatus(status).ToString();
-            this.Image = string.Format("/images/{0}", image);
+			this.EventStatus = Event.Status.ToString();
+            this.IsUpcoming = (Event.Status == Status.Upcoming);
+            this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
+            this.Image = string.Format("/images/{0}", Event.Image);
             this.TicketTable = ticketTable;
             this.Reviews = reviews;
         }
-
+        // ILayoutViewModel
         public bool IsAuthenticated { get; }
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
-        public int NumberOfMessages { get { return this.Messages.Count(); } }
+        public int NumberOfMessages { get; }
 
+        // this
         public string Name { get; }
         public string Category { get; }
         public string Description { get; }
