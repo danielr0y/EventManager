@@ -11,7 +11,7 @@ namespace EventManager.Web.Models
          * should I be sending full objects to this viewModel and then removing what I need? eg.) IUserContext.IsAdmin? or do I just ask for what I need– bool IsAdmin?
          * the later is what gives me so many arguements
          */
-        public EventViewModel(bool isAuthenticated, bool isAdmin, MessageViewModel[] messages, string name, string category, string description, Status status, string image, TicketTableViewModel ticketTable, ReviewViewModel[] reviews)
+        public EventViewModel(bool isAuthenticated, bool isAdmin, IEnumerable<MessageViewModel> messages, string name, string category, string description, Status status, string image, TicketTableViewModel ticketTable, IEnumerable<ReviewViewModel> reviews)
         {
             this.IsAuthenticated = isAuthenticated;
             this.IsAdmin = isAdmin;
@@ -32,7 +32,8 @@ namespace EventManager.Web.Models
 
         public bool IsAuthenticated { get; }
         public bool IsAdmin { get; }
-        public MessageViewModel[] Messages { get; }
+        public IEnumerable<MessageViewModel> Messages { get; }
+        public int NumberOfMessages { get { return this.Messages.Count(); } }
 
         public string Name { get; }
         public string Category { get; }
@@ -45,7 +46,8 @@ namespace EventManager.Web.Models
         public string UIColor { get; }
         public string Image { get; }
         public TicketTableViewModel TicketTable { get; }
-        public ReviewViewModel[] Reviews { get; }
+        public IEnumerable<ReviewViewModel> Reviews { get; }
+        public int NumberOfReviews { get { return this.Reviews.Count(); } }
     }
 }
 

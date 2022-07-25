@@ -3,12 +3,13 @@ namespace EventManager.Web.Models
 {
 	public class TicketTableTimeRowViewModel
 	{
-		public TicketTableTimeRowViewModel(TicketTableTimeCellViewModel[] times)
+		public TicketTableTimeRowViewModel(IEnumerable<TicketTableTimeCellViewModel> times)
 		{
 			this.Times = times;
 		}
 
-        public TicketTableTimeCellViewModel[] Times { get; }
+        public IEnumerable<TicketTableTimeCellViewModel> Times { get; }
+        public int NumberOfCells { get { return Times.Count(); } }
     }
 }
 
