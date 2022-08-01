@@ -9,12 +9,12 @@ namespace EventManager.Web.Models
             bool isUpcoming = (Event.Status == Status.Upcoming);
 
             this.Name = Event.Name;
-            this.DateRange = Event.GetDateRange();
-            this.TimeRange = Event.GetTimeRange();
+            this.DateRange = Event.DateRange;
+            this.TimeRange = Event.TimeRange;
             this.Excerpt = Event.Excerpt;
             this.EventStatus = Event.Status.ToString();
             this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
-            this.LowestPrice = Event.GetLowestPrice().ToString();
+            this.LowestPrice = Event.LowestPrice.ToString();
             this.ButtonText = isUpcoming ? "View Event" : Event.Status.ToString();
             this.Image = string.Format("/images/{0}", Event.Image);
         }

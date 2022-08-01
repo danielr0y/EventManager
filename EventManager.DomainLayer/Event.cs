@@ -18,17 +18,8 @@
         public Status Status { get; set; }
         public string Image { get; set; }
 
-        public string GetDateRange()
-        {
-            return "method not yet implemented";
-        }
-        public string GetTimeRange()
-        {
-            return "method not yet implemented";
-        }
-        public string GetLowestPrice()
-        {
-            return "method not yet implemented";
-        }
+        public string DateRange { get { return "method not yet implemented"; } }
+        public string TimeRange { get { return "method not yet implemented"; } }
+        public decimal LowestPrice { get { return 0; } }
     }
 }

@@ -1,4 +1,4 @@
-
+﻿
 using EventManager.DomainLayer;
 
 namespace EventManager.Web.Models
@@ -15,10 +15,10 @@ namespace EventManager.Web.Models
             this.Name = Event.Name;
 			this.Category = Event.Category;
 			this.Description = Event.Description;
-            this.DateRange = "a range of dates";
-            this.TimeRange = "a range of times";
-            this.LowestPrice = Event.GetLowestPrice().ToString();
-			this.EventStatus = Event.Status.ToString();
+            this.DateRange = Event.DateRange;
+            this.TimeRange = Event.TimeRange;
+            this.LowestPrice = Event.LowestPrice.ToString();
+            this.EventStatus = Event.Status.ToString();
             this.IsUpcoming = (Event.Status == Status.Upcoming);
             this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
             this.Image = string.Format("/images/{0}", Event.Image);
