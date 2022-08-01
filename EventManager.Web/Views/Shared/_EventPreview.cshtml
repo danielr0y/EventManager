@@ -12,7 +12,7 @@
             <p class="mb-1"><strong>@Model.TimeRange</strong></p>
             <p class="card-text">@Model.Excerpt</p>
             <div class="row">
-                <span class="col my-auto">@string.Format("from ${0}", Model.LowestPrice)</span>
+                <span class="col my-auto">@string.Format("From ${0}", Model.LowestPrice)</span>
                 <span class="col-auto">
                     <a href="@Url.Action("Event", "Events", Model.Name)"
                        class="btn btn-outline-@Model.UIColor rounded-pill px-4">@Model.ButtonText</a>

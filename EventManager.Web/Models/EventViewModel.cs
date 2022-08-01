@@ -1,4 +1,4 @@
-﻿
+
 using EventManager.DomainLayer;
 
 namespace EventManager.Web.Models
@@ -17,6 +17,7 @@ namespace EventManager.Web.Models
 			this.Description = Event.Description;
             this.DateRange = "a range of dates";
             this.TimeRange = "a range of times";
+            this.LowestPrice = Event.GetLowestPrice().ToString();
 			this.EventStatus = Event.Status.ToString();
             this.IsUpcoming = (Event.Status == Status.Upcoming);
             this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
@@ -36,7 +37,7 @@ namespace EventManager.Web.Models
         public string Description { get; }
         public string DateRange { get; }
         public string TimeRange { get; }
-        public decimal PricedFrom { get; }
+        public string LowestPrice { get; }
         public string EventStatus { get; }
         public bool IsUpcoming { get; }
         public string UIColor { get; }

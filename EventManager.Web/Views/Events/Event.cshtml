@@ -34,7 +34,7 @@
             <p class="mb-1">@Model.TimeRange</p>
         </div>
         <div class="col-sm">
-            <p>@string.Format("From: ${0}", Model.PricedFrom)</p>
+            <p>@string.Format("From: ${0}", Model.LowestPrice)</p>
         </div>
         <div class="col-sm-auto my-auto">
             @if ( ! Model.IsUpcoming)
