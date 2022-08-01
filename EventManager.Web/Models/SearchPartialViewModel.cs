@@ -1,6 +1,6 @@
 ﻿namespace EventManager.Web.Models
 {
-    public class SearchPartialViewModel : ISearchPartialViewModel
+    public class SearchPartialViewModel
     {
         public SearchPartialViewModel(string category, IEnumerable<string> Categories)
         {
