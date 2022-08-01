@@ -46,7 +46,7 @@ namespace EventManager.Web.Controllers
                         }
                     ),
                     from Event in _eventService.GetAllEvents()
-                    select new EventPreviewViewModel(Event)
+                    select new EventPreviewPartialViewModel(Event)
                 )
             );
         }

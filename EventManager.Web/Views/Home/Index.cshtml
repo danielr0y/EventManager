@@ -1,4 +1,4 @@
-@model UpcomingEventsViewModel
+﻿@model UpcomingEventsViewModel
 
 @section hero{
     <div id="hero" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -48,28 +48,10 @@
         }
         else
         {
-            @foreach (EventPreviewViewModel Event in Model.Events)
+            @foreach (EventPreviewPartialViewModel Event in Model.Events)
             {
-                <div class="col event">
-                    <article class="card">
-                        <a href="@Url.Action("Event", "Events", Event.Name)" class="card-image"
-                           style="background-image: url('@Event.Image');"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">@Event.Name</h5>
-                            <p class="mb-1"><strong>@Event.DateRange</strong></p>
-                            <p class="mb-1"><strong>@Event.TimeRange</strong></p>
-                            <p class="card-text">@Event.Excerpt</p>
-                            <div class="row">
-                                <span class="col my-auto">@string.Format("from ${0}", Event.LowestPrice)</span>
-                                <span class="col-auto">
-                                    <a href="@Url.Action("Event", "Events", Event.Name)"
-                                       class="btn btn-outline-@Event.UIColor rounded-pill px-4">@Event.ButtonText</a>
-                                </span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                @await Html.PartialAsync("_EventPreview", Event)
             }
         }
-        </div>
+    </div>
 </section>

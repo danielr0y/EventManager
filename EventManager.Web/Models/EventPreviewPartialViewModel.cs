@@ -2,9 +2,9 @@
 
 namespace EventManager.Web.Models
 {
-    public class EventPreviewViewModel
+    public class EventPreviewPartialViewModel
     {
-        public EventPreviewViewModel(Event Event)
+        public EventPreviewPartialViewModel(Event Event)
         {
             bool isUpcoming = (Event.Status == Status.Upcoming);
 

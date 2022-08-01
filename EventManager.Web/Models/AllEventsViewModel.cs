@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 namespace EventManager.Web.Models
 {
 	public class AllEventsViewModel : ILayoutViewModel
@@ -26,7 +26,7 @@ namespace EventManager.Web.Models
 
         // this
         public string Heading { get; }
-        public IEnumerable<EventPreviewViewModel> Events { get; }
+        public IEnumerable<EventPreviewPartialViewModel> Events { get; }
         public int NumberOfEvents { get { return this.Events.Count(); } }
     }
 }

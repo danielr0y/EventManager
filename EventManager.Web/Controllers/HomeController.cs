@@ -41,7 +41,7 @@ public class HomeController : Controller
                     }
                 ),
                 from Event in _eventService.GetUpcomingEvents()
-                select new EventPreviewViewModel(Event)
+                select new EventPreviewPartialViewModel(Event)
             )
         );
     }

@@ -1,0 +1,23 @@
+﻿@model EventPreviewPartialViewModel
+
+<div class="col event">
+    <article class="card">
+        <a href="@Url.Action("Event", "Events", Model.Name)" class="card-image"
+           style="background-image: url('@Model.Image');"></a>
+        <div class="card-body">
+            <a href="@Url.Action("Event", "Events", Model.Name)">
+                <h5 class="card-title">@Model.Name</h5>
+            </a>
+            <p class="mb-1"><strong>@Model.DateRange</strong></p>
+            <p class="mb-1"><strong>@Model.TimeRange</strong></p>
+            <p class="card-text">@Model.Excerpt</p>
+            <div class="row">
+                <span class="col my-auto">@string.Format("from ${0}", Model.LowestPrice)</span>
+                <span class="col-auto">
+                    <a href="@Url.Action("Event", "Events", Model.Name)"
+                       class="btn btn-outline-@Model.UIColor rounded-pill px-4">@Model.ButtonText</a>
+                </span>
+            </div>
+        </div>
+    </article>
+</div>
