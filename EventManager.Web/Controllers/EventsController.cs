@@ -24,8 +24,8 @@ namespace EventManager.Web.Controllers
             _eventService = service;
         }
 
-        // GET: /<controller>/
-        public IActionResult Index()
+        // GET: /<controller>/?search&category
+        public IActionResult Index(string? category, string? search)
         {
             return View(
                 new AllEventsViewModel(
@@ -35,7 +35,8 @@ namespace EventManager.Web.Controllers
                         Array.Empty<MessageViewModel>()
                     ),
                     new SearchPartialViewModel(
-                        "Fireworks",
+                        search,
+                        category,
                         new[]
                         {
                             "All Categories",
@@ -45,7 +46,7 @@ namespace EventManager.Web.Controllers
                             "Romantic"
                         }
                     ),
-                    from Event in _eventService.GetAllEvents()
+                    from Event in _eventService.GetEventsBy(category, search)
                     select new EventPreviewPartialViewModel(Event)
                 )
             );

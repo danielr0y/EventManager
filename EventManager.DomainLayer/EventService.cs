@@ -88,6 +88,34 @@ public class EventService : IEventService
         };
     }
 
+    public IEnumerable<Event> GetEventsBy(string? search, string? category)
+    {
+        if (search is null && category is null)
+        {
+            return GetAllEvents();
+        }
+
+        return new[]
+        {
+            new Event(
+                "Sunsuper Riverfire",
+                "See Australia's most beautiful city in a new light. As another year of celebrations for our great city draw to a close, Sunsuper and Brisbane Festival will light up the night and you'll have the best seats in the house. Riverfront, sky-high and air-conditioned!",
+                "description",
+                "Fireworks",
+                Status.Upcoming,
+                "fireworks.jpg"
+            ),
+            new Event(
+                "New Year's Eve",
+                "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
+                "description",
+                "Fireworks",
+                Status.Upcoming,
+                "newyears.jpg"
+            ),
+        };
+    }
+
     public Event GetEvent(string name)
     {
         return new Event(

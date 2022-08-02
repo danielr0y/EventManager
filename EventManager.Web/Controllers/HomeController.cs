@@ -30,7 +30,8 @@ public class HomeController : Controller
                     Array.Empty<MessageViewModel>()
                 ),
                 new SearchPartialViewModel(
-                    "All Categories",
+                    null,
+                    null,
                     new[]
                     {
                         "All Categories",
