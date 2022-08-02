@@ -32,14 +32,7 @@ public class HomeController : Controller
                 new SearchPartialViewModel(
                     null,
                     null,
-                    new[]
-                    {
-                        "All Categories",
-                        "Fireworks",
-                        "Fundraiser",
-                        "Gastronomy",
-                        "Romantic"
-                    }
+                    _eventService.Categories
                 ),
                 from Event in _eventService.GetUpcomingEvents()
                 select new EventPreviewPartialViewModel(Event)

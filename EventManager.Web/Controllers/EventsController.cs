@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,14 +37,7 @@ namespace EventManager.Web.Controllers
                     new SearchPartialViewModel(
                         search,
                         category,
-                        new[]
-                        {
-                            "All Categories",
-                            "Fireworks",
-                            "Fundraiser",
-                            "Gastronomy",
-                            "Romantic"
-                        }
+                        _eventService.Categories
                     ),
                     from Event in _eventService.GetEventsBy(category, search)
                     select new EventPreviewPartialViewModel(Event)

@@ -2,6 +2,35 @@ namespace EventManager.DomainLayer;
 
 public class EventService : IEventService
 {
+    public IEnumerable<string> Categories
+    {
+        get
+        {
+            return new[]
+            {
+                "All Categories",
+                "Fireworks",
+                "Fundraiser",
+                "Gastronomy",
+                "Romantic"
+            };
+        }
+    }
+
+    public IEnumerable<string> Statuses
+    {
+        get
+        {
+            return new[]
+            {
+                Status.Upcoming.ToString(),
+                Status.Inactive.ToString(),
+                Status.BookedOut.ToString(),
+                Status.Cancelled.ToString()
+            };
+        }
+    }
+
     public IEnumerable<Event> GetAllEvents()
     {
         return new[]
