@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,7 +52,7 @@ namespace EventManager.Web.Controllers
             );
         }
 
-        // GET: /<controller>/id
+        // GET: /<controller>/Event/id
         public IActionResult Event(string name)
         {
             return View(
