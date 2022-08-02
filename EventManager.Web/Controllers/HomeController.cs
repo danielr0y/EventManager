@@ -26,7 +26,7 @@ public class HomeController : Controller
             new UpcomingEventsViewModel(
                 new LayoutViewModel(
                     true,
-                    false,
+                    true,
                     Array.Empty<MessageViewModel>()
                 ),
                 new SearchPartialViewModel(

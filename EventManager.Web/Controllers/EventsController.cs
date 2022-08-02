@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +31,7 @@ namespace EventManager.Web.Controllers
                 new AllEventsViewModel(
                     new LayoutViewModel(
                         true,
-                        false,
+                        true,
                         Array.Empty<MessageViewModel>()
                     ),
                     new SearchPartialViewModel(
@@ -59,7 +59,7 @@ namespace EventManager.Web.Controllers
                 new EventViewModel(
                     new LayoutViewModel(
                         true,
-                        false,
+                        true,
                         new[]
                         {
                             new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
