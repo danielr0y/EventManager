@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -137,6 +137,24 @@ namespace EventManager.Web.Controllers
                     }
                 )
             );
+        }
+
+        // GET: /<controller>/Edit/name
+        public IActionResult Edit(string eventName)
+        {
+            return View(
+                new EditEventViewModel(
+                    new LayoutViewModel(
+                        true,
+                        true,
+                        new[]
+                        {
+                            new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
+                        }
+                    ),
+                    _eventService.Categories,
+                    _eventService.Statuses,
+                    _eventService.GetEvent(eventName)));
         }
     }
 }

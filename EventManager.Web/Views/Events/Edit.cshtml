@@ -1,0 +1,199 @@
+﻿@model EditEventViewModel
+
+@section title{Create/Update an event}
+
+<form id="edit-event" method="POST" asp-controller="Events" asp-action="Edit" enctype="multipart/form-data">
+    <fieldset class="row mb-3 g-3">
+        <legend>Event details</legend>
+        <div class="col-lg-6">
+            <div class="form-floating">
+                <input id="name" type="text" name="name" value="@Model.Name"
+                       class="form-control" placeholder="Give this event a name" required>
+                <label for="name">Event Name</label>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group form-floating">
+                <input id="newcategory" type="text" name="newcategory" value="Gastronomy"
+                       class="form-control" placeholder="select a category for this event">
+                <label for="newcategory" style="z-index: 3">New Category</label>
+
+                <select id="category" name="category" class="form-select btn-outline-primary p-3">
+                    @foreach (string category in Model.Categories)
+                    {
+                        bool selected = (Model.Category == category);
+                        <option value="@category" selected="@selected">@category</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="w-100">
+            <div class="form-floating">
+                <input id="desc" type="text" name="desc" value="@Model.Description" rows="4"
+                       style="height: auto;" class="form-control" placeholder="enter a description" required>
+                <label for="desc">Description</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <label class="input-group-text" for="image">Event Image</label>
+            <input id="image" type="file" name="image" value="@Model.Image" class="form-control">
+        </div>
+        <div class="row m-3">
+            <div class="col-md text-center my-auto">
+                <label for="continueWoTickets" class="form-check-label">Update without replacing tickets</label>
+                <input id="continueWoTickets" type="checkbox" class="form-check-input">
+            </div>
+            <div class="col-6 col-md-auto ms-md-0">
+                <select id="status" name="status" class="form-select rounded-pill w-100 ps-4 pe-5" disabled>
+                    @foreach (string status in Model.Statuses)
+                    {
+                        bool selected = (Model.Status == status);
+                        <option value="@status" selected="@selected">@status</option>
+                    }
+                </select>
+            </div>
+            <div class="col-6 col-md-auto">
+                <input id="submit" type="submit" name="submit" value="Create" class="btn btn-primary rounded-pill px-5" disabled>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="tickets" class="row">
+        <legend class="col-sm">Tickets</legend>
+        <span class="col-sm-auto my-auto">Please specify how many gondolas to reserve for each date/time slot and the price of the ticket.</span>
+        <div class="w-100"></div>
+        <fieldset id="ticketstable" class="col" data-tickets="@Model.TicketsAsJSON">
+            <template id="empty-time-header">
+                <div class="col">
+                    <input type="time" min="10:00" step="1800" value="18:00" required
+                           class="form-control btn-light rounded-pill text-center time-header ">
+                </div>
+            </template>
+            <template id="empty-date-row">
+                <div class="row mb-3 g-2 gx-lg-5 date-row">
+                    <div class="col">
+                        <input type="date" min="" value=""
+                               class="btn btn-light rounded-pill w-100 date-header" required>
+                    </div>
+                </div>
+            </template>
+            <template id="empty-datetime">
+                <div class="col datetime">
+                    <div class="input-group w-100">
+                        <input type="number" min="1" max="42" placeholder="#"
+                               class="form-control rounded-pill rounded-end border-dark text-center bg-white gondolas">
+                        <input type="number" min="1" max="200" placeholder="$"
+                               class="form-control rounded-pill rounded-start border-dark text-center bg-white price">
+                    </div>
+                </div>
+            </template>
+            <div id="time-header-row" class="row mb-3 g-2 gx-lg-5">
+                <div class="col"></div>
+            </div>
+        </fieldset>
+        <div class="col-auto m-auto">
+            <button id="newtime" type="button" class="btn btn-outline-primary w-100 w-sm-75 rounded-pill">+</button>
+        </div>
+        <div class="w-100 text-center">
+            <button id="newdate" type="button" class="btn btn-outline-primary w-lg-25 rounded-pill">+</button>
+        </div>
+        <div class="col-auto ms-auto">
+            <select id="status" name="status" class="form-select rounded-pill w-100 ps-4 pe-5">
+                @foreach (string status in Model.Statuses)
+                {
+                    bool selected = ("Upcoming" == status);
+                    <option value="@status" selected="@selected">@status</option>
+                }
+            </select>
+        </div>
+        <div class="col-auto">
+            <input id="submit" type="submit" name="submit" value="Create"
+                   class="btn btn-primary rounded-pill px-5" >
+        </div>
+    </fieldset>
+</form>
+
+@section Scripts
+{
+    <script>
+        (function () {
+            document.getElementById('category').addEventListener('change', ({ target }) => {
+                document.getElementById('newcategory').value = target.value;
+            });
+
+            const continueWoTickets = document.getElementById('continueWoTickets');
+            if (continueWoTickets) {
+                continueWoTickets.addEventListener('change', ({ target }) => {
+                    document.getElementById('status').toggleAttribute('disabled');
+                    document.getElementById('submit').toggleAttribute('disabled');
+                    document.getElementById('tickets').toggleAttribute('disabled');
+                });
+            }
+
+            const newtimebutton = document.getElementById('newtime');
+            newtimebutton.addEventListener('click', ({ target }) => {
+                const table = document.getElementById('ticketstable');
+
+                // only allow when other fields are valid
+                if (!table.reportValidity()) return;
+
+                // only allow 4 sessions per day
+                const columns = document.querySelectorAll('.time-header')
+                if (columns.length >= 5) return;
+
+                // insert a new header with time input field
+                const timesheader = document.getElementById('time-header-row');
+                const timesheadercell = document.getElementById('empty-time-header').content.cloneNode(true);
+                timesheader.append(timesheadercell);
+
+                // insert a new datetime cell into each date row
+                const rows = document.querySelectorAll('.date-row'); // this does not include the row in the template. get it
+                const daterowintemplate = document.getElementById('empty-date-row').content.firstElementChild;
+                const newdatetimecell = document.getElementById('empty-datetime');
+                [...rows, daterowintemplate].forEach(daterow => {
+                    daterow.append(newdatetimecell.content.cloneNode(true));
+                });
+            })
+
+            const newdatebutton = document.getElementById('newdate');
+            newdatebutton.addEventListener('click', ({ target }) => {
+                const table = document.getElementById('ticketstable');
+
+                // only allow when other fields are valid
+                if (!table.reportValidity()) return;
+
+                const newdaterow = document.getElementById('empty-date-row').content.cloneNode(true);
+                table.append(newdaterow);
+            });
+
+            // add a datetimecell from the beginning
+            newdatebutton.dispatchEvent(new Event('click'));
+            newtimebutton.dispatchEvent(new Event('click'));
+
+            const form = document.getElementById('edit-event');
+            form.addEventListener('formdata', (event) => {
+                const times = document.querySelectorAll('.time-header');
+                const daterows = document.querySelectorAll('.date-row');
+
+                const alltickets = [];
+                daterows.forEach(daterow => {
+                    const date = daterow.querySelector('.date-header').value;
+                    const datetimes = daterow.querySelectorAll('.datetime');
+
+                    datetimes.forEach((datetime, index) => {
+                        const datetimestamp = date + " " + times[index].value;
+                        const numberOfGondolas = datetime.querySelector('.gondolas').value || 0;
+                        const price = datetime.querySelector('.price').value || 0;
+
+                        alltickets.push({
+                            datetime: datetimestamp,
+                            numberOfGondolas,
+                            price
+                        })
+                    })
+                })
+
+                event.formData.append('tickets', JSON.stringify(alltickets))
+            });
+        })()
+    </script>
+}

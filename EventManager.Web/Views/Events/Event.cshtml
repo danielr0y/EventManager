@@ -10,7 +10,7 @@
     @if ( Model.IsAuthenticated && Model.IsAdmin )
     {
         <div class="col-sm-auto my-auto">
-            <a href="@Url.Action("Create", "Events")" class="btn btn-outline-primary rounded-pill px-5">Update</a>
+            <a href="@Url.Action("Edit", "Events")" class="btn btn-outline-primary rounded-pill px-5">Update</a>
         </div>
         <div class="col-sm-auto my-auto">
             <a href="@Url.Action("Delete", "Events")" class="btn btn-outline-primary rounded-pill px-5">Delete</a>
