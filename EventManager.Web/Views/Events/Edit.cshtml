@@ -1,4 +1,4 @@
-﻿@model EditEventViewModel
+@model EditEventViewModel
 
 @section title{Create/Update an event}
 
@@ -14,9 +14,9 @@
         </div>
         <div class="col-lg-6">
             <div class="input-group form-floating">
-                <input id="newcategory" type="text" name="newcategory" value="Gastronomy"
+                <input id="newcategory" type="text" name="newcategory" value=""
                        class="form-control" placeholder="select a category for this event">
-                <label for="newcategory" style="z-index: 3">New Category</label>
+                <label for="newcategory" style="z-index: 3">Add a new category</label>
 
                 <select id="category" name="category" class="form-select btn-outline-primary p-3">
                     @foreach (string category in Model.Categories)
