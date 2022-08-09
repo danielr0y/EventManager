@@ -1,0 +1,20 @@
+﻿@model EventsPartialViewModel
+
+<section>
+    <header class="row mb-3">
+        <h3 class="col">@Model.Heading</h3>
+    </header>
+    <div class='row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-3 g-3'>
+        @if (Model.NumberOfEvents == 0)
+        {
+            <p>There are no events of this type. <a href="@Url.Action("Index", "Events")">Go back to all events</a></p>
+        }
+        else
+        {
+            @foreach (EventPreviewPartialViewModel Event in Model.Events)
+            {
+                @await Html.PartialAsync("_EventPreview", Event)
+            }
+        }
+    </div>
+</section>

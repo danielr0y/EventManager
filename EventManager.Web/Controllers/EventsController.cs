@@ -39,8 +39,11 @@ namespace EventManager.Web.Controllers
                         category,
                         _eventService.Categories
                     ),
-                    from Event in _eventService.GetEventsBy(category, search)
-                    select new EventPreviewPartialViewModel(Event)
+                    new EventsPartialViewModel(
+                        "Ordered reverse chronologically including past events",
+                        from Event in _eventService.GetEventsBy(category, search)
+                        select new EventPreviewPartialViewModel(Event)
+                    )
                 )
             );
         }

@@ -3,7 +3,11 @@ namespace EventManager.Web.Models
 {
 	public class AllEventsViewModel : ILayoutViewModel
     {
-		public AllEventsViewModel(ILayoutViewModel layoutViewModel, SearchPartialViewModel searchPartialViewModel, IEnumerable<EventPreviewPartialViewModel> events)
+		public AllEventsViewModel(
+            ILayoutViewModel layoutViewModel, 
+            SearchPartialViewModel searchPartialViewModel, 
+            EventsPartialViewModel events
+        )
         {
             this.IsAuthenticated = layoutViewModel.IsAuthenticated;
             this.IsAdmin = layoutViewModel.IsAdmin;
@@ -12,22 +16,20 @@ namespace EventManager.Web.Models
 
             this.SearchPartialViewModel = searchPartialViewModel;
 
-            this.Heading = "All Events";
 			this.Events = events;
         }
-        // ILayoutViewModel
+        // parent template items
         public bool IsAuthenticated { get; }
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
         public int NumberOfMessages { get; }
 
-        // SearchPartialView
+        // search box
         public SearchPartialViewModel SearchPartialViewModel { get; }
 
-        // this
-        public string Heading { get; }
-        public IEnumerable<EventPreviewPartialViewModel> Events { get; }
-        public int NumberOfEvents { get { return this.Events.Count(); } }
+        public string Heading { get; } = "All Events";
+        // events
+        public EventsPartialViewModel Events { get; }
     }
 }
 

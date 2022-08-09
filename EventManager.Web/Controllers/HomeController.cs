@@ -23,7 +23,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         return View(
-            new UpcomingEventsViewModel(
+            new HomeViewModel(
                 new LayoutViewModel(
                     true,
                     true,
@@ -34,8 +34,16 @@ public class HomeController : Controller
                     null,
                     _eventService.Categories
                 ),
-                from Event in _eventService.GetUpcomingEvents()
-                select new EventPreviewPartialViewModel(Event)
+                new EventsPartialViewModel(
+                    "Upcoming Events",
+                    from Event in _eventService.GetUpcomingEvents()
+                    select new EventPreviewPartialViewModel(Event)
+                ),
+                new EventsPartialViewModel(
+                    "Cancelled Events",
+                    from Event in _eventService.GetCancelledEvents()
+                    select new EventPreviewPartialViewModel(Event)
+                )
             )
         );
     }

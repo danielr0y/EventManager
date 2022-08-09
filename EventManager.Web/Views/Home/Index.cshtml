@@ -1,4 +1,4 @@
-﻿@model UpcomingEventsViewModel
+﻿@model HomeViewModel
 
 @section hero{
     <div id="hero" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -34,24 +34,14 @@
     </div>
 }
 
-<section>
-    <header class="row mb-3">
-        <h3 class="col">@Model.Heading</h3>
-        <div class="col-6 col-md-auto my-auto">
-            @await Html.PartialAsync("_Search", Model.SearchPartialViewModel)
-        </div>
-    </header>
-    <div class='row row-cols-1 row-cols-md-2 row-cols-xl-3 mb-3 g-3'>
-        @if (Model.NumberOfEvents == 0)
-        {
-            <p>There are no upcoming events. <a href="@Url.Action("Index", "Events")">View all events</a></p>
-        }
-        else
-        {
-            @foreach (EventPreviewPartialViewModel Event in Model.Events)
-            {
-                @await Html.PartialAsync("_EventPreview", Event)
-            }
-        }
+@section title{@Model.Heading}
+
+@section headerButtons{
+    <div class="col-6 col-md-auto my-auto">
+        @await Html.PartialAsync("_Search", Model.Search)
     </div>
-</section>
+}
+
+@await Html.PartialAsync("_Events", Model.UpcomingEvents)
+
+@await Html.PartialAsync("_Events", Model.CancelledEvents)

@@ -117,6 +117,20 @@ public class EventService : IEventService
         };
     }
 
+    public IEnumerable<Event> GetCancelledEvents()
+    {
+        return new[]
+        {
+            new Event(
+                "New Year's Eve",
+                "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
+                "description",
+                "Fireworks",
+                Status.Cancelled,
+                "newyears.jpg")
+        };
+    }
+
     public IEnumerable<Event> GetEventsBy(string? search, string? category)
     {
         if (search is null && category is null)
