@@ -1,6 +1,6 @@
 @model EditEventViewModel
 
-@section title{Create/Update an event}
+@section title{ @(Model.Editing ? "Update" : "Create") an event}
 
 <form id="edit-event" method="POST" asp-controller="Events" asp-action="Edit" enctype="multipart/form-data">
     <fieldset class="row mb-3 g-3">
