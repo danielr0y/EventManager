@@ -16,15 +16,17 @@ namespace EventManager.Web
 
         public Controller Create(Type type)
         {
+            var ticketService = new TicketService();
+            var eventService = new EventService(ticketService);
             switch (type.Name)
             {
                 case nameof(HomeController):
-                    return new HomeController(
-                        new EventService());
+                    return new HomeController(eventService);
 
                 case nameof(EventsController):
                     return new EventsController(
-                        new EventService());
+                        eventService,
+                        ticketService);
 
                 default: throw new InvalidOperationException($"Unknown controller {type}.");
             }

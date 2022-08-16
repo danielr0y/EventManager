@@ -1,13 +1,15 @@
 ﻿
+using EventManager.DomainLayer;
+
 namespace EventManager.Web.Models
 {
 	public class TicketTableTicketCellViewModel
 	{
-		public TicketTableTicketCellViewModel(int id, decimal price, int remaining)
+		public TicketTableTicketCellViewModel(Ticket ticket)
 		{
-			this.Id = id;
-			this.Price = price;
-			this.Remaining = remaining;
+			this.Id = ticket.Id;
+			this.Price = ticket.Price;
+			this.Remaining = ticket.RemainingGondolas;
 		}
 
         public int Id { get; }

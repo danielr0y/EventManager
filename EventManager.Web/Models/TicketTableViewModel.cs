@@ -7,7 +7,7 @@ namespace EventManager.Web.Models
 		{
 			this.TimeRow = timeRow;
 			this.DateRows = dateRows;
-			this.Width = this.TimeRow.NumberOfCells + 1;
+			this.Width = timeRow.NumberOfCells + 1;
 		}
 
         public TicketTableTimeRowViewModel TimeRow { get; }

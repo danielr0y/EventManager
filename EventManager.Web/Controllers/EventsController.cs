@@ -1,27 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventManager.DomainLayer;
+﻿using EventManager.DomainLayer;
 using EventManager.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EventManager.Web.Controllers
 {
     public class EventsController : Controller
     {
         private readonly IEventService _eventService;
+        private readonly ITicketService _ticketService;
 
-        public EventsController(IEventService service)
+        public EventsController(IEventService eventService, ITicketService ticketService)
         {
-            if (service == null)
+            if (eventService == null)
             {
-                throw new ArgumentNullException("service");
+                throw new ArgumentNullException("eventService");
             }
 
-            _eventService = service;
+            if (ticketService == null)
+            {
+                throw new ArgumentNullException("ticketService");
+            }
+
+            _eventService = eventService;
+            _ticketService = ticketService;
         }
 
         // GET: /<controller>/?search&category
@@ -52,6 +53,7 @@ namespace EventManager.Web.Controllers
         public IActionResult Event(int id)
         {
             var Event = _eventService.GetEvent(id);
+
             return View(
                 new EventViewModel(
                     new LayoutViewModel(
@@ -65,51 +67,15 @@ namespace EventManager.Web.Controllers
                     Event,
                     new TicketTableViewModel(
                         new TicketTableTimeRowViewModel(
-                            new[]
-                            {
-                                new TicketTableTimeCellViewModel(
-                                    new TimeOnly(18, 00)
-                                ),
-                                new TicketTableTimeCellViewModel(
-                                    new TimeOnly(19, 00)
-                                )
-                            }
+                            from timeCell in _ticketService.FormatDataForTicketTableTimeRow(Event.Tickets)
+                            select new TicketTableTimeCellViewModel(timeCell)
                         ),
-                        new[]
-                        {
-                            new TicketTableDateRowViewModel(
-                                new DateOnly(2022, 07, 30),
-                                new[]
-                                {
-                                    new TicketTableTicketCellViewModel(
-                                        0,
-                                        120,
-                                        12
-                                    ),
-                                    new TicketTableTicketCellViewModel(
-                                        1,
-                                        100,
-                                        10
-                                    ),
-                                }
-                            ),
-                            new TicketTableDateRowViewModel(
-                                new DateOnly(2022, 07, 31),
-                                new[]
-                                {
-                                    new TicketTableTicketCellViewModel(
-                                        2,
-                                        110,
-                                        8
-                                    ),
-                                    new TicketTableTicketCellViewModel(
-                                        3,
-                                        120,
-                                        12
-                                    ),
-                                }
-                            ),
-                        }
+                        from dateRow in _ticketService.FormatDataForTicketTableDateRows(Event.Tickets)
+                        select new TicketTableDateRowViewModel(
+                            dateRow.Key,
+                            from ticket in dateRow
+                            select new TicketTableTicketCellViewModel(ticket)
+                        )
                     ),
                     new[]
                     {

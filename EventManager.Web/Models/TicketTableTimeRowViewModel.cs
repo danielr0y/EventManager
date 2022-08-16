@@ -9,7 +9,7 @@ namespace EventManager.Web.Models
 		}
 
         public IEnumerable<TicketTableTimeCellViewModel> Times { get; }
-        public int NumberOfCells { get { return Times.Count(); } }
+        public int NumberOfCells { get { return this.Times.Count(); } }
     }
 }
 
