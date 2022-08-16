@@ -19,14 +19,14 @@ namespace EventManager.Web.Models
             this.Image = string.Format("/images/{0}", Event.Image);
         }
 
-        public String Name { get; }
-        public String DateRange { get; }
-        public String TimeRange { get; }
-        public String Excerpt { get; }
-        public String EventStatus { get; }
-        public String UIColor { get; }
-        public String ButtonText { get; }
-        public String LowestPrice { get; }
-        public String Image { get; }
+        public string Name { get; }
+        public string DateRange { get; }
+        public string TimeRange { get; }
+        public string Excerpt { get; }
+        public string EventStatus { get; }
+        public string UIColor { get; }
+        public string ButtonText { get; }
+        public string LowestPrice { get; }
+        public string Image { get; }
     }
 }
