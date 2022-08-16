@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 using EventManager.Web.Models;
@@ -36,12 +36,12 @@ public class HomeController : Controller
                 ),
                 new EventsPartialViewModel(
                     "Upcoming Events",
-                    from Event in _eventService.GetUpcomingEvents()
+                    from Event in _eventService.UpcomingEvents
                     select new EventPreviewPartialViewModel(Event)
                 ),
                 new EventsPartialViewModel(
                     "Cancelled Events",
-                    from Event in _eventService.GetCancelledEvents()
+                    from Event in _eventService.CancelledEvents
                     select new EventPreviewPartialViewModel(Event)
                 )
             )

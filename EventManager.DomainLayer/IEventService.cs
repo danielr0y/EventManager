@@ -4,9 +4,9 @@ namespace EventManager.DomainLayer
     {
         IEnumerable<string> Categories { get; }
         IEnumerable<string> Statuses { get; }
-        IEnumerable<Event> GetAllEvents();
-        IEnumerable<Event> GetUpcomingEvents();
-        IEnumerable<Event> GetCancelledEvents();
+        IEnumerable<Event> AllEvents { get; }
+        IEnumerable<Event> UpcomingEvents { get; }
+        IEnumerable<Event> CancelledEvents { get; }
         IEnumerable<Event> GetEventsBy(string? category, string? search);
         Event GetEvent(int id);
     }
