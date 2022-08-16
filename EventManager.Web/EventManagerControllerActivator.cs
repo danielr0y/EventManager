@@ -18,6 +18,7 @@ namespace EventManager.Web
         {
             var ticketService = new TicketService();
             var eventService = new EventService(ticketService);
+            var bookingService = new BookingService(eventService, ticketService);
             switch (type.Name)
             {
                 case nameof(HomeController):
@@ -25,6 +26,12 @@ namespace EventManager.Web
 
                 case nameof(EventsController):
                     return new EventsController(
+                        eventService,
+                        ticketService);
+
+                case nameof(BookingsController):
+                    return new BookingsController(
+                        bookingService,
                         eventService,
                         ticketService);
 

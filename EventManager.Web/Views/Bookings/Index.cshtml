@@ -1,0 +1,37 @@
+﻿@model BookingsViewModel
+
+@section title{ My Bookings }
+
+<!-- <form id="search" class="row mb-3" method="POST">
+    {# form.hidden_tag() #}
+    <input type="hidden" name="email" value="user@email.com" />
+    <div class="col">
+        <div class="form-floating">
+            <input id="orderID" name="orderID" type="number"
+                    placeholder="show order by ID"
+                    class="form-control" required >
+            <label for="orderID">OrderID</label>
+        </div>
+    </div>
+    <div class="col-auto my-auto">
+        <button type="submit" class="btn btn-outline-success rounded-pill px-5">Show Booking</button>
+    </div>
+</form> -->
+<section class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-3">
+    @foreach (BookingPreviewPartialViewModel booking in Model.Bookings)
+    {
+        @await Html.PartialAsync("_Booking", booking)
+    }
+</section>
+
+@section Scripts
+{
+    <script>
+        (function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        })()
+    </script>
+}
