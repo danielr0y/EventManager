@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,8 +49,9 @@ namespace EventManager.Web.Controllers
         }
 
         // GET: /<controller>/Event/id
-        public IActionResult Event(string name)
+        public IActionResult Event(int id)
         {
+            var Event = _eventService.GetEvent(id);
             return View(
                 new EventViewModel(
                     new LayoutViewModel(
@@ -61,7 +62,7 @@ namespace EventManager.Web.Controllers
                             new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
                         }
                     ),
-                    _eventService.GetEvent(name),
+                    Event,
                     new TicketTableViewModel(
                         new TicketTableTimeRowViewModel(
                             new[]
@@ -143,7 +144,7 @@ namespace EventManager.Web.Controllers
         }
 
         // GET: /<controller>/Edit/name
-        public IActionResult Edit(string eventName)
+        public IActionResult Edit(int id)
         {
             return View(
                 new EditEventViewModel(
@@ -157,7 +158,7 @@ namespace EventManager.Web.Controllers
                     ),
                     _eventService.Categories,
                     _eventService.Statuses,
-                    _eventService.GetEvent(eventName)));
+                    _eventService.GetEvent(id)));
         }
     }
 }

@@ -159,7 +159,7 @@ public class EventService : IEventService
         };
     }
 
-    public Event GetEvent(string name)
+    public Event GetEvent(int id)
     {
         return new Event(
             "Sirromet Wine and Dine",

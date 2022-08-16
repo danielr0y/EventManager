@@ -1,4 +1,4 @@
-﻿namespace EventManager.DomainLayer
+namespace EventManager.DomainLayer
 {
     public interface IEventService
     {
@@ -8,6 +8,6 @@
         IEnumerable<Event> GetUpcomingEvents();
         IEnumerable<Event> GetCancelledEvents();
         IEnumerable<Event> GetEventsBy(string? category, string? search);
-        Event GetEvent(string name);
+        Event GetEvent(int id);
     }
 }
