@@ -16,5 +16,13 @@ namespace EventManager.Web.Models
                 { Status.BookedOut, Color.dark }
             }[status];
         }
+        public static Color GetColorByActionPriviledge(UserRole requiredPriviledge)
+        {
+            return new Dictionary<UserRole, Color>
+            {
+                { UserRole.Admin, Color.primary },
+                { UserRole.Customer, Color.success }
+            }[requiredPriviledge];
+        }
     }
 }

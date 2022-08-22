@@ -35,6 +35,10 @@ namespace EventManager.Web
                         eventService,
                         ticketService);
 
+                case nameof(UsersController):
+                    return new UsersController(
+                        new UserService());
+
                 default: throw new InvalidOperationException($"Unknown controller {type}.");
             }
         }

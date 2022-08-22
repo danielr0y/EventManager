@@ -1,0 +1,14 @@
+﻿@model UserPreviewPartialViewModel
+
+<div id="@Model.Id" class="col">
+    <div class="card">
+        <div class="card-body">
+            <h5>@Model.Name</h5>
+            <div><strong>UserId: </strong>@Model.Id</div>
+            <div><strong>Email: </strong>@Model.Email</div>
+            <div class="row">
+                <a href="@Url.Action("ChangeRole", "Users")" class="@string.Format("col-auto btn btn-outline-{0} rounded-pill px-5", Model.UIColor)">@Model.ButtonText</a>
+            </div>
+        </div>
+    </div>
+</div>
