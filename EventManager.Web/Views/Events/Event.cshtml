@@ -177,15 +177,9 @@
         }
         else
         {
-            @foreach (ReviewViewModel review in Model.Reviews)
+            @foreach (ReviewPartialViewModel review in Model.Reviews)
             {
-                <div class="row border-top pt-3">
-                    <article>
-                        <strong>@review.Name</strong>
-                        <i>@review.DateTime</i>
-                        <p>@review.Text</p>
-                    </article>
-                </div>
+                @await Html.PartialAsync("_Review", review)
             }
         }
     </div>

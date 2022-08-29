@@ -8,8 +8,9 @@ namespace EventManager.Web.Controllers
     {
         private readonly IEventService _eventService;
         private readonly ITicketService _ticketService;
+        private readonly IReviewService _reviewService;
 
-        public EventsController(IEventService eventService, ITicketService ticketService)
+        public EventsController(IEventService eventService, ITicketService ticketService, IReviewService reviewService)
         {
             if (eventService == null)
             {
@@ -21,8 +22,14 @@ namespace EventManager.Web.Controllers
                 throw new ArgumentNullException("ticketService");
             }
 
+            if (reviewService == null)
+            {
+                throw new ArgumentNullException("reviewService");
+            }
+
             _eventService = eventService;
             _ticketService = ticketService;
+            _reviewService = reviewService;
         }
 
         // GET: /<controller>/?search&category
@@ -77,34 +84,8 @@ namespace EventManager.Web.Controllers
                             select new TicketTableTicketCellViewModel(ticket)
                         )
                     ),
-                    new[]
-                    {
-                        new ReviewViewModel(
-                            "Simbro",
-                            new DateTime(),
-                            "Was sick, eh."
-                        ),
-                        new ReviewViewModel(
-                            "Simbro",
-                            new DateTime(),
-                            "Was sick, eh."
-                        ),
-                        new ReviewViewModel(
-                            "Simbro",
-                            new DateTime(),
-                            "Was sick, eh."
-                        ),
-                        new ReviewViewModel(
-                            "Simbro",
-                            new DateTime(),
-                            "Was sick, eh."
-                        ),
-                        new ReviewViewModel(
-                            "Simbro",
-                            new DateTime(),
-                            "Was sick, eh."
-                        ),
-                    }
+                    from review in _reviewService.GetReviewsBy(Event)
+                    select new ReviewPartialViewModel(review)
                 )
             );
         }
@@ -128,4 +109,3 @@ namespace EventManager.Web.Controllers
         }
     }
 }
-

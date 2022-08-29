@@ -30,10 +30,19 @@ namespace EventManager.DomainLayer
                     new User(
                         3,
                         "Simon",
-                        "simonm@email.com",
+                        "simon@email.com",
                         UserRole.Customer
                     )};
             }
+        }
+
+        public User GetUser(int id)
+        {
+            return new User(
+                1,
+                "Michelle",
+                "michelle@email.com",
+                UserRole.Customer);
         }
     }
 }

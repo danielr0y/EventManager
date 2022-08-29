@@ -5,7 +5,7 @@ namespace EventManager.Web.Models
 {
 	public class EventViewModel : ILayoutViewModel
     {
-        public EventViewModel(ILayoutViewModel layoutViewModel, Event Event, TicketTableViewModel ticketTable, IEnumerable<ReviewViewModel> reviews)
+        public EventViewModel(ILayoutViewModel layoutViewModel, Event Event, TicketTableViewModel ticketTable, IEnumerable<ReviewPartialViewModel> reviews)
         {
             this.IsAuthenticated = layoutViewModel.IsAuthenticated;
             this.IsAdmin = layoutViewModel.IsAdmin;
@@ -43,7 +43,7 @@ namespace EventManager.Web.Models
         public string UIColor { get; }
         public string Image { get; }
         public TicketTableViewModel TicketTable { get; }
-        public IEnumerable<ReviewViewModel> Reviews { get; }
+        public IEnumerable<ReviewPartialViewModel> Reviews { get; }
         public int NumberOfReviews { get { return this.Reviews.Count(); } }
     }
 }

@@ -3,5 +3,6 @@
     public interface IUserService
     {
         IEnumerable<User> AllUsers { get; }
+        User GetUser(int id);
     }
 }

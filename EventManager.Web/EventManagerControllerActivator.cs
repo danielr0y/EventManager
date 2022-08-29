@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using EventManager.DomainLayer;
@@ -19,6 +19,10 @@ namespace EventManager.Web
             var ticketService = new TicketService();
             var eventService = new EventService(ticketService);
             var bookingService = new BookingService(eventService, ticketService);
+            var userService = new UserService();
+            var reviewService = new ReviewService(userService);
+
+            // Create Transient components
             switch (type.Name)
             {
                 case nameof(HomeController):
@@ -27,7 +31,8 @@ namespace EventManager.Web
                 case nameof(EventsController):
                     return new EventsController(
                         eventService,
-                        ticketService);
+                        ticketService,
+                        reviewService);
 
                 case nameof(BookingsController):
                     return new BookingsController(
@@ -36,8 +41,7 @@ namespace EventManager.Web
                         ticketService);
 
                 case nameof(UsersController):
-                    return new UsersController(
-                        new UserService());
+                    return new UsersController(userService);
 
                 default: throw new InvalidOperationException($"Unknown controller {type}.");
             }
