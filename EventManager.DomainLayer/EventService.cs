@@ -49,6 +49,7 @@ public class EventService : IEventService
             return new[]
             {
                 new Event(
+                    10,
                     "Some Inactive event",
                     "Havent really got an excerpt for this lazi boi yet",
                     "description",
@@ -58,6 +59,7 @@ public class EventService : IEventService
                     _ticketService.GetTickets(100)
                 ),
                 new Event(
+                    20,
                     "Sirromet Wine and Dine",
                     "Three nights a week for 4 weeks over Spring, The Wheel of Brisbane and Sirromet are teaming up to bring you and your partner a dining experience like no other. Leave the kids with uncle Bob and treat your partner to the romantic dinner for two they've been dreaming of.",
                     "description",
@@ -67,6 +69,7 @@ public class EventService : IEventService
                     _ticketService.GetTickets(100)
                 ),
                 new Event(
+                    30,
                     "Sunsuper Riverfire",
                     "See Australia's most beautiful city in a new light. As another year of celebrations for our great city draw to a close, Sunsuper and Brisbane Festival will light up the night and you'll have the best seats in the house. Riverfront, sky-high and air-conditioned!",
                     "description",
@@ -76,6 +79,7 @@ public class EventService : IEventService
                     _ticketService.GetTickets(100)
                 ),
                 new Event(
+                    40,
                     "New Year's Eve",
                     "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
                     "description",
@@ -85,6 +89,7 @@ public class EventService : IEventService
                     _ticketService.GetTickets(100)
                 ),
                 new Event(
+                    50,
                     "New Year's Eve",
                     "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
                     "description",
@@ -94,6 +99,7 @@ public class EventService : IEventService
                     _ticketService.GetTickets(100)
                 ),
                 new Event(
+                    60,
                     "New Year's Eve",
                     "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
                     "description",
@@ -113,6 +119,7 @@ public class EventService : IEventService
             return new[]
             {
                 new Event(
+                    70,
                     "Sirromet Wine and Dine",
                     "Three nights a week for 4 weeks over Spring, The Wheel of Brisbane and Sirromet are teaming up to bring you and your partner a dining experience like no other. Leave the kids with uncle Bob and treat your partner to the romantic dinner for two they've been dreaming of.",
                     "description",
@@ -122,6 +129,7 @@ public class EventService : IEventService
                     _ticketService.GetTickets(100)
                 ),
                 new Event(
+                    80,
                     "Sunsuper Riverfire",
                     "See Australia's most beautiful city in a new light. As another year of celebrations for our great city draw to a close, Sunsuper and Brisbane Festival will light up the night and you'll have the best seats in the house. Riverfront, sky-high and air-conditioned!",
                     "description",
@@ -131,6 +139,7 @@ public class EventService : IEventService
                     _ticketService.GetTickets(100)
                 ),
                 new Event(
+                    90,
                     "New Year's Eve",
                     "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
                     "description",
@@ -150,6 +159,7 @@ public class EventService : IEventService
             return new[]
             {
                 new Event(
+                    10,
                     "New Year's Eve",
                     "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
                     "description",
@@ -172,6 +182,7 @@ public class EventService : IEventService
         return new[]
         {
             new Event(
+                20,
                 "Sunsuper Riverfire",
                 "See Australia's most beautiful city in a new light. As another year of celebrations for our great city draw to a close, Sunsuper and Brisbane Festival will light up the night and you'll have the best seats in the house. Riverfront, sky-high and air-conditioned!",
                 "description",
@@ -181,6 +192,7 @@ public class EventService : IEventService
                 _ticketService.GetTickets(100)
             ),
             new Event(
+                30,
                 "New Year's Eve",
                 "New Year's Eve on the Wheel of Brisbane is an experience you won't forget. The most sought after tickets we have on offer, these will sell out fast. Book now",
                 "description",
@@ -193,13 +205,14 @@ public class EventService : IEventService
     public Event GetEvent(int id)
     {
         return new Event(
+            40,
             "Sirromet Wine and Dine",
             "excerpt",
             "Three nights a week for 4 weeks over Spring, The Wheel of Brisbane and Sirromet are teaming up to bring you and your partner a dining experience like no other. Leave the kids with uncle Bob and treat your partner to the romantic dinner for two they've been dreaming of.",
             "Gastronomy",
             Status.Upcoming,
             "wine.jpg",
-            _ticketService.GetTickets(100));
+            _ticketService.GetTickets(id));
     }
 
 }

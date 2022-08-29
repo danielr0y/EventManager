@@ -9,6 +9,7 @@ namespace EventManager.Web.Models
             bool isUpcoming = (Event.Status == Status.Upcoming);
 
             this.Id = booking.Id;
+            this.EventId = Event.Id;
             this.EventName = Event.Name;
             this.EventImage = string.Format("/images/{0}", Event.Image);
             this.TicketDate = string.Format("{0:dd/MM/yy}", ticket.DateTime);
@@ -24,7 +25,8 @@ namespace EventManager.Web.Models
             this.EventExcerpt = Event.Excerpt;
         }
 
-        public decimal Id { get; }
+        public int Id { get; }
+        public int EventId { get; }
         public string EventName { get; }
         public string EventImage { get; }
         public string TicketDate { get; }

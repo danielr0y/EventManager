@@ -40,7 +40,7 @@
             @if ( ! Model.IsUpcoming)
             {
                 <button type="button" class="btn @string.Format("btn-outline-{0}", Model.UIColor) rounded-pill px-5"
-                        disabled">@Model.EventStatus</button>
+                        disabled>@Model.EventStatus</button>
             }
             else if (Model.IsAuthenticated)
             {

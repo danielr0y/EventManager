@@ -8,6 +8,7 @@ namespace EventManager.Web.Models
         {
             bool isUpcoming = (Event.Status == Status.Upcoming);
 
+            this.Id = Event.Id;
             this.Name = Event.Name;
             this.DateRange = Event.DateRange;
             this.TimeRange = Event.TimeRange;
@@ -19,6 +20,7 @@ namespace EventManager.Web.Models
             this.Image = string.Format("/images/{0}", Event.Image);
         }
 
+        public int Id { get; }
         public string Name { get; }
         public string DateRange { get; }
         public string TimeRange { get; }

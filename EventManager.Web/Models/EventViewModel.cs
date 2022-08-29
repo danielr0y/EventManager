@@ -12,6 +12,7 @@ namespace EventManager.Web.Models
             this.Messages = layoutViewModel.Messages;
             this.NumberOfMessages = layoutViewModel.NumberOfMessages;
 
+            this.Id = Event.Id;
             this.Name = Event.Name;
 			this.Category = Event.Category;
 			this.Description = Event.Description;
@@ -32,6 +33,7 @@ namespace EventManager.Web.Models
         public int NumberOfMessages { get; }
 
         // this
+        public int Id { get; }
         public string Name { get; }
         public string Category { get; }
         public string Description { get; }

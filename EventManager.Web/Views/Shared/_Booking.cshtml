@@ -2,7 +2,7 @@
 
 <div id="@Model.Id" class="col">
     <div class="card">
-        <a href="@Url.Action("Event", "Events")" class="card-image" style="background-image: url('@Model.EventImage')"></a>
+        <a href="@Url.Action("Event", "Events", new {id = Model.EventId})" class="card-image" style="background-image: url('@Model.EventImage')"></a>
         <div class="card-body">
             <div class="card-body">
                 <h5>@Model.EventName</h5>
@@ -14,7 +14,7 @@
                 <div class="mb-3"><strong>gondolas reserved: </strong>@Model.Qty</div>
                 <div class="row">
                     <span class="col my-auto">@Model.EventStatus</span>
-                    <a href="@string.Format("{0}{1}", Url.Action("Event", "Events"), Model.IsUpcomingEvent ? "" : "#reviews")" class="@string.Format("col-auto btn btn-outline-{0} rounded-pill px-5", Model.UIColor)">@Model.ButtonText</a>
+                    <a href="@string.Format("{0}{1}", Url.Action("Event", "Events", new {id = Model.EventId}), Model.IsUpcomingEvent ? "" : "#reviews")" class="@string.Format("col-auto btn btn-outline-{0} rounded-pill px-5", Model.UIColor)">@Model.ButtonText</a>
                 </div>
             </div>
         </div>

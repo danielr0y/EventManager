@@ -2,8 +2,9 @@
 {
     public class Event
     {
-        public Event(string name, string excerpt, string description, string category, Status status, string image, IEnumerable<Ticket> tickets)
+        public Event(int id, string name, string excerpt, string description, string category, Status status, string image, IEnumerable<Ticket> tickets)
         {
+            this.Id = id;
             this.Name = name;
             this.Excerpt = excerpt;
             this.Description = description;
@@ -12,6 +13,7 @@
             this.Image = image;
             this.Tickets = tickets;
         }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Excerpt { get; set; }
         public string Description { get; set; }
