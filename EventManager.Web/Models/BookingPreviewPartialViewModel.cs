@@ -4,25 +4,25 @@ namespace EventManager.Web.Models
 {
     public class BookingPreviewPartialViewModel
     {
-        public BookingPreviewPartialViewModel(Booking booking, Ticket ticket, Event Event)
+        public BookingPreviewPartialViewModel(Booking booking)
         {
-            bool isUpcoming = (Event.Status == Status.Upcoming);
+            bool isUpcoming = (booking.Ticket.Event.Status == Status.Upcoming);
 
             this.Id = booking.Id;
-            this.EventId = Event.Id;
-            this.EventName = Event.Name;
-            this.EventImage = string.Format("/images/{0}", Event.Image);
-            this.TicketDate = string.Format("{0:dd/MM/yy}", ticket.DateTime);
-            this.TicketTime = string.Format("{0:H:mm}", ticket.DateTime);
+            this.EventId = booking.Ticket.Event.Id;
+            this.EventName = booking.Ticket.Event.Name;
+            this.EventImage = string.Format("/images/{0}", booking.Ticket.Event.Image);
+            this.TicketDate = string.Format("{0:dd/MM/yy}", booking.Ticket.DateTime);
+            this.TicketTime = string.Format("{0:H:mm}", booking.Ticket.DateTime);
             this.PurchasePrice = booking.PurchasePrice.ToString();
             this.PurchaseDate = string.Format("{0:dd/MM/yy H:mm}", booking.PurchaseDate);
             this.Qty = booking.Qty;
-            this.EventStatus = Event.Status.ToString();
+            this.EventStatus = booking.Ticket.Event.Status.ToString();
             this.IsUpcomingEvent = isUpcoming;
             this.ButtonText = isUpcoming ? "View booking" : "Leave a review";
-            this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
+            this.UIColor = UI.GetColorByStatus(booking.Ticket.Event.Status).ToString();
 
-            this.EventExcerpt = Event.Excerpt;
+            this.EventExcerpt = booking.Ticket.Event.Excerpt;
         }
 
         public int Id { get; }
