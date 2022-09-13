@@ -1,11 +1,22 @@
-﻿using EventManager.Web;
+using EventManager.DataLayer;
+using EventManager.Web;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IControllerActivator>(new EventManagerControllerActivator());
+
+// Add custom Pure DI Controller Activator
+var controllerActivator = new EventManagerControllerActivator(
+    new EventManagerConfiguration(
+        builder.Configuration.GetConnectionString("ConnectionString")
+        // ,
+        // builder.Configuration.GetSection("AppSettings")
+        //     .GetValue<string>("RepositoryType")
+    )
+);
+builder.Services.AddSingleton<IControllerActivator>(controllerActivator);
 
 var app = builder.Build();
 

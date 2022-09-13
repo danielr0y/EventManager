@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using EventManager.DataLayer;
 using EventManager.DomainLayer;
 using EventManager.Web.Controllers;
 
@@ -8,6 +9,20 @@ namespace EventManager.Web
 {
     public class EventManagerControllerActivator : IControllerActivator
     {
+        private readonly IUserContext _userContext;
+        private readonly EventManagerConfiguration _configuration;
+
+        public EventManagerControllerActivator(EventManagerConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+            
+            this._configuration = configuration;
+            this._userContext = new AspNetUserContextAdapter();
+        }
+
         public object Create(ControllerContext context) => 
             this.Create(context.ActionDescriptor.ControllerTypeInfo.AsType());
 
@@ -16,29 +31,29 @@ namespace EventManager.Web
 
         public Controller Create(Type type)
         {
-            var ticketService = new TicketService();
-            var eventService = new EventService(ticketService);
-            var bookingService = new BookingService(eventService, ticketService);
-            var userService = new UserService();
-            var reviewService = new ReviewService(userService);
+            var dbContext = new EventManagerContext(this._configuration.ConnectionString);
+            
+            var userRepository = new UserRepository(dbContext);
+            var eventRepository = new EventRepository(dbContext);
+            var ticketRepository = new TicketRepository(dbContext);
+            var bookingRepository = new BookingRepository(dbContext);
+            
+            var userService = new UserService(userRepository, _userContext);
+            var eventService = new EventService(eventRepository);
+            var ticketService = new TicketService(ticketRepository);
+            var bookingService = new BookingService(bookingRepository);
 
-            // Create Transient components
+
             switch (type.Name)
             {
                 case nameof(HomeController):
                     return new HomeController(eventService);
 
                 case nameof(EventsController):
-                    return new EventsController(
-                        eventService,
-                        ticketService,
-                        reviewService);
+                    return new EventsController(eventService, ticketService);
 
                 case nameof(BookingsController):
-                    return new BookingsController(
-                        bookingService,
-                        eventService,
-                        ticketService);
+                    return new BookingsController(bookingService, userService);
 
                 case nameof(UsersController):
                     return new UsersController(userService);
