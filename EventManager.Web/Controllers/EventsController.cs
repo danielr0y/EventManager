@@ -8,9 +8,8 @@ namespace EventManager.Web.Controllers
     {
         private readonly IEventService _eventService;
         private readonly ITicketService _ticketService;
-        private readonly IReviewService _reviewService;
 
-        public EventsController(IEventService eventService, ITicketService ticketService, IReviewService reviewService)
+        public EventsController(IEventService eventService, ITicketService ticketService)
         {
             if (eventService == null)
             {
@@ -22,14 +21,8 @@ namespace EventManager.Web.Controllers
                 throw new ArgumentNullException("ticketService");
             }
 
-            if (reviewService == null)
-            {
-                throw new ArgumentNullException("reviewService");
-            }
-
             _eventService = eventService;
             _ticketService = ticketService;
-            _reviewService = reviewService;
         }
 
         // GET: /<controller>/?search&category
@@ -56,7 +49,6 @@ namespace EventManager.Web.Controllers
             );
         }
 
-        // GET: /<controller>/Event/id
         public IActionResult Event(int id)
         {
             var Event = _eventService.GetEvent(id);
@@ -84,13 +76,12 @@ namespace EventManager.Web.Controllers
                             select new TicketTableTicketCellViewModel(ticket)
                         )
                     ),
-                    from review in _reviewService.GetReviewsBy(Event)
+                    from review in Event.Reviews
                     select new ReviewPartialViewModel(review)
                 )
             );
         }
 
-        // GET: /<controller>/Edit/name
         public IActionResult Edit(int id)
         {
             return View(
