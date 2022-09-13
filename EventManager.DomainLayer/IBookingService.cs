@@ -2,6 +2,6 @@
 {
     public interface IBookingService
     {
-        IEnumerable<Booking> Bookings { get; }
+        IEnumerable<Booking> GetBookingsBy(User user);
     }
 }

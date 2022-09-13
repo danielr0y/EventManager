@@ -10,27 +10,22 @@ namespace EventManager.Web.Controllers;
 public class BookingsController : Controller
 {
     private readonly IBookingService _bookingService;
-    private readonly IEventService _eventService;
-    private readonly ITicketService _ticketService;
+    private readonly IUserService _userService;
 
-    public BookingsController(IBookingService bookingService, IEventService eventService, ITicketService ticketService)
+    public BookingsController(IBookingService bookingService, IUserService userService)
     {
         if (bookingService == null)
         {
             throw new ArgumentNullException("bookingService");
         }
-        if (eventService == null)
+
+        if (userService == null)
         {
-            throw new ArgumentNullException("eventService");
-        }
-        if (ticketService == null)
-        {
-            throw new ArgumentNullException("ticketService");
+            throw new ArgumentNullException(nameof(userService));
         }
 
         _bookingService = bookingService;
-        _eventService = eventService;
-        _ticketService = ticketService;
+        _userService = userService;
     }
 
     public IActionResult Index()
@@ -39,14 +34,11 @@ public class BookingsController : Controller
             new BookingsViewModel(
                 new LayoutViewModel(
                     true,
-                    false,
+                    true,
                     Array.Empty<MessageViewModel>()
                 ),
-                from booking in _bookingService.Bookings
-                select new BookingPreviewPartialViewModel(
-                    booking,
-                    _ticketService.GetTicket(100),
-                    _eventService.GetEvent(100))));
+                from booking in _bookingService.GetBookingsBy(_userService.CurrentUser)
+                select new BookingPreviewPartialViewModel(booking)));
     }
 }
 
