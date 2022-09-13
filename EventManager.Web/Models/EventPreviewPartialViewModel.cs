@@ -8,16 +8,16 @@ namespace EventManager.Web.Models
         {
             bool isUpcoming = (Event.Status == Status.Upcoming);
 
-            this.Id = Event.Id;
-            this.Name = Event.Name;
-            this.DateRange = Event.DateRange;
-            this.TimeRange = Event.TimeRange;
-            this.Excerpt = Event.Excerpt;
-            this.EventStatus = Event.Status.ToString();
-            this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
-            this.LowestPrice = Event.LowestPrice.ToString();
-            this.ButtonText = isUpcoming ? "View Event" : Event.Status.ToString();
-            this.Image = string.Format("/images/{0}", Event.Image);
+            Id = Event.Id;
+            Name = Event.Name;
+            DateRange = Event.DateRange;
+            TimeRange = Event.TimeRange;
+            Excerpt = Event.Excerpt;
+            EventStatus = Event.Status.ToString();
+            UIColor = UI.GetColorByStatus(Event.Status).ToString();
+            LowestPrice = Event.LowestPrice.ToString();
+            ButtonText = isUpcoming ? "View Event" : Event.Status.ToString();
+            Image = string.Format("/images/{0}", Event.Image);
         }
 
         public int Id { get; }

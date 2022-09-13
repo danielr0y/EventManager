@@ -5,12 +5,12 @@ namespace EventManager.Web.Models
     {
         public EventsPartialViewModel(string heading, IEnumerable<EventPreviewPartialViewModel> events)
         {
-            this.Heading = heading;
-            this.Events = events;
+            Heading = heading;
+            Events = events;
         }
 
         public string Heading { get; }
         public IEnumerable<EventPreviewPartialViewModel> Events { get; }
-        public int NumberOfEvents { get { return this.Events.Count(); } }
+        public int NumberOfEvents => Events.Count();
     }
 }

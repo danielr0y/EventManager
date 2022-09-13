@@ -8,12 +8,7 @@ namespace EventManager.DomainLayer
 
         public BookingService(IBookingRepository repository)
         {
-            if (repository == null)
-            {
-                throw new ArgumentNullException("repository");
-            }
-
-            this._repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         public IEnumerable<Booking> GetBookingsBy(User user) => _repository.GetBookingsBy(user);

@@ -5,8 +5,8 @@ namespace EventManager.Web.Models
 	{
 		public TicketTableDateRowViewModel(DateOnly date, IEnumerable<TicketTableTicketCellViewModel> tickets)
 		{
-			this.Date = date;
-			this.Tickets = tickets;
+			Date = date;
+			Tickets = tickets;
 		}
 
         public DateOnly Date { get; }

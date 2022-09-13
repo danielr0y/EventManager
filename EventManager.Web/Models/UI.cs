@@ -6,23 +6,20 @@ namespace EventManager.Web.Models
 
     static class UI
     {
-        public static Color GetColorByStatus(Status status)
-        {
-            return new Dictionary<Status, Color>
+        public static Color GetColorByStatus(Status status) => 
+            new Dictionary<Status, Color>
             {
                 { Status.Upcoming, Color.success },
                 { Status.Inactive, Color.light },
                 { Status.Cancelled, Color.danger },
                 { Status.BookedOut, Color.dark }
             }[status];
-        }
-        public static Color GetColorByActionPriviledge(UserRole requiredPriviledge)
-        {
-            return new Dictionary<UserRole, Color>
+        
+        public static Color GetColorByActionPriviledge(UserRole requiredPriviledge) => 
+            new Dictionary<UserRole, Color>
             {
                 { UserRole.Admin, Color.primary },
                 { UserRole.Customer, Color.success }
             }[requiredPriviledge];
-        }
     }
 }

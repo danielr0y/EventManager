@@ -4,14 +4,14 @@
     {
         public LayoutViewModel(bool isAuthenticated, bool isAdmin, IEnumerable<MessageViewModel> messages)
         {
-            this.IsAuthenticated = isAuthenticated;
-            this.IsAdmin = isAdmin;
-            this.Messages = messages;
+            IsAuthenticated = isAuthenticated;
+            IsAdmin = isAdmin;
+            Messages = messages;
         }
 
         public bool IsAuthenticated { get; }
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
-        public int NumberOfMessages { get { return this.Messages.Count(); } }
+        public int NumberOfMessages => Messages.Count();
     }
 }

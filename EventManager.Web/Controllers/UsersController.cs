@@ -10,7 +10,7 @@ namespace EventManager.Web.Controllers
 
         public UsersController(IUserService userService)
         {
-            this._userService = userService;
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         public IActionResult Index()

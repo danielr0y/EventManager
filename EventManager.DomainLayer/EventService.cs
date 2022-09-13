@@ -6,12 +6,7 @@ public class EventService : IEventService
 
     public EventService(IEventRepository eventRepository)
     {
-        if (eventRepository == null)
-        {
-            throw new ArgumentNullException(nameof(eventRepository));
-        }
-
-        this._eventRepository = eventRepository;
+        _eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
     }
 
     public IEnumerable<string> Categories => _eventRepository.Categories;
@@ -28,7 +23,7 @@ public class EventService : IEventService
     {
         if (search is null && category is null)
         {
-            return this.AllEvents;
+            return AllEvents;
         }
 
         return _eventRepository.GetEventsBy(search, category);

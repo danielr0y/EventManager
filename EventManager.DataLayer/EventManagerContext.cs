@@ -9,7 +9,7 @@ namespace EventManager.DataLayer
 
         public EventManagerContext()
         {
-            this._connectionString = "Data Source=/Users/daniel/Projects/EventManager/eventmanager.sqlite";
+            _connectionString = "Data Source=/Users/daniel/Projects/EventManager/eventmanager.sqlite";
         }
 
         public EventManagerContext(string connectionString)
@@ -19,7 +19,7 @@ namespace EventManager.DataLayer
                 throw new ArgumentException("Value should not be empty.", nameof(connectionString));
             }
 
-            this._connectionString = connectionString;
+            _connectionString = connectionString;
         }
 
         public DbSet<Event> Events { get; set; }
@@ -30,7 +30,7 @@ namespace EventManager.DataLayer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(this._connectionString);
+            optionsBuilder.UseSqlite(_connectionString);
         }
     }
 }

@@ -7,9 +7,9 @@ namespace EventManager.Web.Models
 	{
 		public ReviewPartialViewModel(Review review)
 		{
-			this.Name = review.User.Name;
-			this.DateTime = review.DateTime.ToString();
-			this.Text = review.Text;
+			Name = review.User.Name;
+			DateTime = review.DateTime.ToString();
+			Text = review.Text;
 		}
 
         public string Name { get; }

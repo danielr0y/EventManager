@@ -7,13 +7,13 @@ namespace EventManager.DataLayer
         private readonly EventManagerContext _context;
         public TicketRepository(EventManagerContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Ticket GetTicket(int id) => this._context.Tickets.Single(ticket => ticket.Id == id);
+        public Ticket GetTicket(int id) => _context.Tickets.Single(ticket => ticket.Id == id);
 
         public IEnumerable<Ticket> GetTickets(Event Event) =>
-            from ticket in this._context.Tickets
+            from ticket in _context.Tickets
             where ticket.Event == Event
             select ticket;
     }

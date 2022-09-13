@@ -14,24 +14,19 @@ namespace EventManager.Web
 
         public EventManagerControllerActivator(EventManagerConfiguration configuration)
         {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-            
-            this._configuration = configuration;
-            this._userContext = new AspNetUserContextAdapter();
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _userContext = new AspNetUserContextAdapter();
         }
 
         public object Create(ControllerContext context) => 
-            this.Create(context.ActionDescriptor.ControllerTypeInfo.AsType());
+            Create(context.ActionDescriptor.ControllerTypeInfo.AsType());
 
         public void Release(ControllerContext context, object controller) =>
             (controller as IDisposable)?.Dispose();
 
         public Controller Create(Type type)
         {
-            var dbContext = new EventManagerContext(this._configuration.ConnectionString);
+            var dbContext = new EventManagerContext(_configuration.ConnectionString);
             
             var userRepository = new UserRepository(dbContext);
             var eventRepository = new EventRepository(dbContext);

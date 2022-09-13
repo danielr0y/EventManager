@@ -1,5 +1,4 @@
-﻿using System;
-namespace EventManager.DomainLayer
+﻿namespace EventManager.DomainLayer
 {
     public class Review
     {

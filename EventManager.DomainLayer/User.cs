@@ -9,7 +9,7 @@ namespace EventManager.DomainLayer
         public UserRole Role { get; set; }
         // public IEnumerable<Review> Reviews { get; set; }
 
-        public bool HasUserRole(UserRole role) => this.Role == role;
+        public bool HasUserRole(UserRole role) => Role == role;
     }
 }
 

@@ -8,11 +8,11 @@ namespace EventManager.Web.Models
         {
             var isAdmin = user.HasUserRole(UserRole.Admin);
 
-            this.Name = user.Name;
-            this.Id = user.Id;
-            this.Email = user.Email;
-            this.UIColor = UI.GetColorByActionPriviledge(UserRole.Admin).ToString();
-            this.ButtonText = isAdmin ? "Revoke Admin Priviledges" : "Grant Admin Priviledges";
+            Name = user.Name;
+            Id = user.Id;
+            Email = user.Email;
+            UIColor = UI.GetColorByActionPriviledge(UserRole.Admin).ToString();
+            ButtonText = isAdmin ? "Revoke Admin Priviledges" : "Grant Admin Priviledges";
         }
 
         public string Name { get; }

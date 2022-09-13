@@ -12,12 +12,7 @@ public class HomeController : Controller
 
     public HomeController(IEventService eventService)
     {
-        if (eventService == null)
-        {
-            throw new ArgumentNullException("eventService");
-        }
-
-        _eventService = eventService;
+        _eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
     }
 
     public IActionResult Index()

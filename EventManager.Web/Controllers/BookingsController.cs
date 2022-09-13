@@ -14,18 +14,8 @@ public class BookingsController : Controller
 
     public BookingsController(IBookingService bookingService, IUserService userService)
     {
-        if (bookingService == null)
-        {
-            throw new ArgumentNullException("bookingService");
-        }
-
-        if (userService == null)
-        {
-            throw new ArgumentNullException(nameof(userService));
-        }
-
-        _bookingService = bookingService;
-        _userService = userService;
+        _bookingService = bookingService ?? throw new ArgumentNullException(nameof(bookingService));
+        _userService = userService ?? throw new ArgumentNullException(nameof(userService));
     }
 
     public IActionResult Index()

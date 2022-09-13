@@ -3,11 +3,14 @@ namespace EventManager.Web.Models
 {
 	public class TicketTableViewModel
 	{
-		public TicketTableViewModel(TicketTableTimeRowViewModel timeRow, IEnumerable<TicketTableDateRowViewModel> dateRows)
+		public TicketTableViewModel(
+			TicketTableTimeRowViewModel timeRow, 
+			IEnumerable<TicketTableDateRowViewModel> dateRows
+		)
 		{
-			this.TimeRow = timeRow;
-			this.DateRows = dateRows;
-			this.Width = timeRow.NumberOfCells + 1;
+			TimeRow = timeRow;
+			DateRows = dateRows;
+			Width = timeRow.NumberOfCells + 1;
 		}
 
         public TicketTableTimeRowViewModel TimeRow { get; }

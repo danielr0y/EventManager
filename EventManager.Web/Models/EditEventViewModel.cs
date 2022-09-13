@@ -6,24 +6,29 @@ namespace EventManager.Web.Models
 {
     public class EditEventViewModel : ILayoutViewModel
     {
-        public EditEventViewModel(ILayoutViewModel layoutViewModel, IEnumerable<string> categories, IEnumerable<string> statuses, Event? Event = null)
+        public EditEventViewModel(
+            ILayoutViewModel layoutViewModel, 
+            IEnumerable<string> categories, 
+            IEnumerable<string> statuses, 
+            Event? Event = null
+        )
         {
-            this.IsAuthenticated = layoutViewModel.IsAuthenticated;
-            this.IsAdmin = layoutViewModel.IsAdmin;
-            this.Messages = layoutViewModel.Messages;
-            this.NumberOfMessages = layoutViewModel.NumberOfMessages;
+            IsAuthenticated = layoutViewModel.IsAuthenticated;
+            IsAdmin = layoutViewModel.IsAdmin;
+            Messages = layoutViewModel.Messages;
+            NumberOfMessages = layoutViewModel.NumberOfMessages;
 
-            this.Categories = categories;
-            this.Statuses = statuses;
+            Categories = categories;
+            Statuses = statuses;
 
             if (Event != null)
             {
-                this.Editing = true;
-                this.Name = Event.Name;
-                this.Category = Event.Category;
-                this.Description = Event.Description;
-                this.Image = Event.Image;
-                this.Status = Event.Status.ToString();
+                Editing = true;
+                Name = Event.Name;
+                Category = Event.Category;
+                Description = Event.Description;
+                Image = Event.Image;
+                Status = Event.Status.ToString();
             }
         }
 

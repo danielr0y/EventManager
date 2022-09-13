@@ -11,8 +11,8 @@
         public string Image { get; set; }
         public IEnumerable<Ticket> Tickets { get; set; }
         public IEnumerable<Review> Reviews { get; set; }
-        public string DateRange { get { return "method not yet implemented"; } }
-        public string TimeRange { get { return "method not yet implemented"; } }
-        public decimal LowestPrice { get { return 0; } }
+        public string DateRange => "method not yet implemented";
+        public string TimeRange => "method not yet implemented";
+        public decimal LowestPrice => 0;
     }
 }

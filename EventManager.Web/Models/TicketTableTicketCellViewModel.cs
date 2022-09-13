@@ -7,9 +7,9 @@ namespace EventManager.Web.Models
 	{
 		public TicketTableTicketCellViewModel(Ticket ticket)
 		{
-			this.Id = ticket.Id;
-			this.Price = ticket.Price;
-			this.Remaining = ticket.RemainingGondolas;
+			Id = ticket.Id;
+			Price = ticket.Price;
+			Remaining = ticket.RemainingGondolas;
 		}
 
         public int Id { get; }

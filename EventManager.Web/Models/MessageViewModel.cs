@@ -4,8 +4,8 @@
     {
         public MessageViewModel(Color category, string body)
         {
-            this.Category = category;
-            this.Body = body;
+            Category = category;
+            Body = body;
         }
 
         public Color Category { get; }

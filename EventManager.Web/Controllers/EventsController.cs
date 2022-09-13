@@ -11,18 +11,8 @@ namespace EventManager.Web.Controllers
 
         public EventsController(IEventService eventService, ITicketService ticketService)
         {
-            if (eventService == null)
-            {
-                throw new ArgumentNullException("eventService");
-            }
-
-            if (ticketService == null)
-            {
-                throw new ArgumentNullException("ticketService");
-            }
-
-            _eventService = eventService;
-            _ticketService = ticketService;
+            _eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
+            _ticketService = ticketService ?? throw new ArgumentNullException(nameof(ticketService));
         }
 
         // GET: /<controller>/?search&category

@@ -8,25 +8,25 @@ namespace EventManager.DomainLayer
         
         public TicketService(ITicketRepository ticketRepository)
         {
-            this._repository = ticketRepository ?? throw new ArgumentNullException(nameof(ticketRepository));
+            _repository = ticketRepository ?? throw new ArgumentNullException(nameof(ticketRepository));
         }
 
         public IEnumerable<TimeOnly> FormatDataForTicketTableTimeRow(IEnumerable<Ticket> tickets)
         {
-            var ticketsGrouped = from ticket in tickets
-                                 orderby ticket.DateTime
-                                 group ticket by TimeOnly.FromDateTime(ticket.DateTime);
+            var ticketsGrouped = 
+                from ticket in tickets
+                orderby ticket.DateTime
+                group ticket by TimeOnly.FromDateTime(ticket.DateTime);
 
-            return from ticket in ticketsGrouped
-                   select ticket.Key;
+            return 
+                from ticket in ticketsGrouped
+                select ticket.Key;
         }
 
-        public IEnumerable<IGrouping<DateOnly, Ticket>> FormatDataForTicketTableDateRows(IEnumerable<Ticket> tickets)
-        {
-            return from ticket in tickets
-                   orderby ticket.DateTime
-                   group ticket by DateOnly.FromDateTime(ticket.DateTime);
-        }
+        public IEnumerable<IGrouping<DateOnly, Ticket>> FormatDataForTicketTableDateRows(IEnumerable<Ticket> tickets) => 
+            from ticket in tickets
+            orderby ticket.DateTime
+            group ticket by DateOnly.FromDateTime(ticket.DateTime);
 
         public Ticket GetTicket(int id) => _repository.GetTicket(id);
 

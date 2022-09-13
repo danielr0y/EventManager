@@ -9,11 +9,11 @@ public class ReviewRepository : IReviewRepository
 
     public ReviewRepository(EventManagerContext context)
     {
-        this._context = context ?? throw new ArgumentNullException(nameof(context));
+        _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
     public IEnumerable<Review> GetReviewsBy(Event Event) =>
-        from review in this._context.Reviews.Include(review => review.User)
+        from review in _context.Reviews.Include(review => review.User)
         where review.Event == Event
         select review;
 }

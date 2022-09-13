@@ -8,21 +8,21 @@ namespace EventManager.Web.Models
         {
             bool isUpcoming = (booking.Ticket.Event.Status == Status.Upcoming);
 
-            this.Id = booking.Id;
-            this.EventId = booking.Ticket.Event.Id;
-            this.EventName = booking.Ticket.Event.Name;
-            this.EventImage = string.Format("/images/{0}", booking.Ticket.Event.Image);
-            this.TicketDate = string.Format("{0:dd/MM/yy}", booking.Ticket.DateTime);
-            this.TicketTime = string.Format("{0:H:mm}", booking.Ticket.DateTime);
-            this.PurchasePrice = booking.PurchasePrice.ToString();
-            this.PurchaseDate = string.Format("{0:dd/MM/yy H:mm}", booking.PurchaseDate);
-            this.Qty = booking.Qty;
-            this.EventStatus = booking.Ticket.Event.Status.ToString();
-            this.IsUpcomingEvent = isUpcoming;
-            this.ButtonText = isUpcoming ? "View booking" : "Leave a review";
-            this.UIColor = UI.GetColorByStatus(booking.Ticket.Event.Status).ToString();
+            Id = booking.Id;
+            EventId = booking.Ticket.Event.Id;
+            EventName = booking.Ticket.Event.Name;
+            EventImage = string.Format("/images/{0}", booking.Ticket.Event.Image);
+            TicketDate = string.Format("{0:dd/MM/yy}", booking.Ticket.DateTime);
+            TicketTime = string.Format("{0:H:mm}", booking.Ticket.DateTime);
+            PurchasePrice = booking.PurchasePrice.ToString();
+            PurchaseDate = string.Format("{0:dd/MM/yy H:mm}", booking.PurchaseDate);
+            Qty = booking.Qty;
+            EventStatus = booking.Ticket.Event.Status.ToString();
+            IsUpcomingEvent = isUpcoming;
+            ButtonText = isUpcoming ? "View booking" : "Leave a review";
+            UIColor = UI.GetColorByStatus(booking.Ticket.Event.Status).ToString();
 
-            this.EventExcerpt = booking.Ticket.Event.Excerpt;
+            EventExcerpt = booking.Ticket.Event.Excerpt;
         }
 
         public int Id { get; }

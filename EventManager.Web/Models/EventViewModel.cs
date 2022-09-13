@@ -5,26 +5,31 @@ namespace EventManager.Web.Models
 {
 	public class EventViewModel : ILayoutViewModel
     {
-        public EventViewModel(ILayoutViewModel layoutViewModel, Event Event, TicketTableViewModel ticketTable, IEnumerable<ReviewPartialViewModel> reviews)
+        public EventViewModel(
+            ILayoutViewModel layoutViewModel, 
+            Event Event, 
+            TicketTableViewModel ticketTable, 
+            IEnumerable<ReviewPartialViewModel> reviews
+        )
         {
-            this.IsAuthenticated = layoutViewModel.IsAuthenticated;
-            this.IsAdmin = layoutViewModel.IsAdmin;
-            this.Messages = layoutViewModel.Messages;
-            this.NumberOfMessages = layoutViewModel.NumberOfMessages;
+            IsAuthenticated = layoutViewModel.IsAuthenticated;
+            IsAdmin = layoutViewModel.IsAdmin;
+            Messages = layoutViewModel.Messages;
+            NumberOfMessages = layoutViewModel.NumberOfMessages;
 
-            this.Id = Event.Id;
-            this.Name = Event.Name;
-			this.Category = Event.Category;
-			this.Description = Event.Description;
-            this.DateRange = Event.DateRange;
-            this.TimeRange = Event.TimeRange;
-            this.LowestPrice = Event.LowestPrice.ToString();
-            this.EventStatus = Event.Status.ToString();
-            this.IsUpcoming = (Event.Status == Status.Upcoming);
-            this.UIColor = UI.GetColorByStatus(Event.Status).ToString();
-            this.Image = string.Format("/images/{0}", Event.Image);
-            this.TicketTable = ticketTable;
-            this.Reviews = reviews;
+            Id = Event.Id;
+            Name = Event.Name;
+			Category = Event.Category;
+			Description = Event.Description;
+            DateRange = Event.DateRange;
+            TimeRange = Event.TimeRange;
+            LowestPrice = Event.LowestPrice.ToString();
+            EventStatus = Event.Status.ToString();
+            IsUpcoming = (Event.Status == Status.Upcoming);
+            UIColor = UI.GetColorByStatus(Event.Status).ToString();
+            Image = string.Format("/images/{0}", Event.Image);
+            TicketTable = ticketTable;
+            Reviews = reviews;
         }
         // ILayoutViewModel
         public bool IsAuthenticated { get; }
@@ -46,7 +51,7 @@ namespace EventManager.Web.Models
         public string Image { get; }
         public TicketTableViewModel TicketTable { get; }
         public IEnumerable<ReviewPartialViewModel> Reviews { get; }
-        public int NumberOfReviews { get { return this.Reviews.Count(); } }
+        public int NumberOfReviews => Reviews.Count();
     }
 }
 

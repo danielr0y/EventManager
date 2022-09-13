@@ -9,14 +9,14 @@ namespace EventManager.Web.Models
             EventsPartialViewModel events
         )
         {
-            this.IsAuthenticated = layoutViewModel.IsAuthenticated;
-            this.IsAdmin = layoutViewModel.IsAdmin;
-            this.Messages = layoutViewModel.Messages;
-            this.NumberOfMessages = layoutViewModel.NumberOfMessages;
+            IsAuthenticated = layoutViewModel.IsAuthenticated;
+            IsAdmin = layoutViewModel.IsAdmin;
+            Messages = layoutViewModel.Messages;
+            NumberOfMessages = layoutViewModel.NumberOfMessages;
 
-            this.SearchPartialViewModel = searchPartialViewModel;
+            SearchPartialViewModel = searchPartialViewModel;
 
-			this.Events = events;
+			Events = events;
         }
         // parent template items
         public bool IsAuthenticated { get; }

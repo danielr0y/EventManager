@@ -12,15 +12,15 @@ namespace EventManager.Web.Models
             EventsPartialViewModel cancelledEvents
         )
         {
-            this.IsAuthenticated = layout.IsAuthenticated;
-            this.IsAdmin = layout.IsAdmin;
-            this.Messages = layout.Messages;
-            this.NumberOfMessages = layout.NumberOfMessages;
+            IsAuthenticated = layout.IsAuthenticated;
+            IsAdmin = layout.IsAdmin;
+            Messages = layout.Messages;
+            NumberOfMessages = layout.NumberOfMessages;
 
-            this.Search = search;
+            Search = search;
 
-            this.UpcomingEvents = upcomingEvents;
-            this.CancelledEvents = cancelledEvents;
+            UpcomingEvents = upcomingEvents;
+            CancelledEvents = cancelledEvents;
         }
         // parent template items
         public bool IsAuthenticated { get; }
