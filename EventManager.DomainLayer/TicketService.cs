@@ -4,8 +4,11 @@ namespace EventManager.DomainLayer
 {
     public class TicketService : ITicketService
     {
-        public TicketService()
+        private readonly ITicketRepository _repository;
+        
+        public TicketService(ITicketRepository ticketRepository)
         {
+            this._repository = ticketRepository ?? throw new ArgumentNullException(nameof(ticketRepository));
         }
 
         public IEnumerable<TimeOnly> FormatDataForTicketTableTimeRow(IEnumerable<Ticket> tickets)
@@ -25,49 +28,9 @@ namespace EventManager.DomainLayer
                    group ticket by DateOnly.FromDateTime(ticket.DateTime);
         }
 
-        public Ticket GetTicket(int id)
-        {
-            return new Ticket(
-                new DateTime(2022, 9, 28, 6, 0, 0),
-                100,
-                10);
-        }
+        public Ticket GetTicket(int id) => _repository.GetTicket(id);
 
-        public IEnumerable<Ticket> GetTickets(int eventID)
-        {
-            return new[]
-            {
-                new Ticket(
-                    new DateTime(2022, 9, 28, 18, 0, 0),
-                    120,
-                    12
-                ),
-                new Ticket(
-                    new DateTime(2022, 9, 28, 19, 0, 0),
-                    120,
-                    12
-                ),
-                new Ticket(
-                    new DateTime(2022, 9, 29, 18, 0, 0),
-                    100,
-                    6
-                ),
-                new Ticket(
-                    new DateTime(2022, 9, 29, 19, 0, 0),
-                    120,
-                    8
-                ),
-                new Ticket(
-                    new DateTime(2022, 9, 30, 18, 0, 0),
-                    120,
-                    2
-                ),
-                new Ticket(
-                    new DateTime(2022, 9, 30, 19, 0, 0),
-                    140,
-                    4
-                )};
-        }
+        public IEnumerable<Ticket> GetTickets(Event Event) => _repository.GetTickets(Event);
     }
 }
 

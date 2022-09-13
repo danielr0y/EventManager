@@ -3,47 +3,18 @@ namespace EventManager.DomainLayer
 {
     public class UserService : IUserService
     {
-        public IEnumerable<User> AllUsers
+        private readonly IUserRepository _userRepository;
+        private readonly IUserContext _userContext;
+        public UserService(IUserRepository userRepository, IUserContext userContext)
         {
-            get
-            {
-                return new[]
-                {
-                    new User(
-                        0,
-                        "Daniel",
-                        "daniel@email.com",
-                        UserRole.Admin
-                    ),
-                    new User(
-                        1,
-                        "Michelle",
-                        "michelle@email.com",
-                        UserRole.Customer
-                    ),
-                    new User(
-                        2,
-                        "Aaron",
-                        "aaron@email.com",
-                        UserRole.Customer
-                    ),
-                    new User(
-                        3,
-                        "Simon",
-                        "simon@email.com",
-                        UserRole.Customer
-                    )};
-            }
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
         }
+        public IEnumerable<User> AllUsers => _userRepository.AllUsers;
+        public User CurrentUser => GetUser(_userContext.Id);
 
-        public User GetUser(int id)
-        {
-            return new User(
-                1,
-                "Michelle",
-                "michelle@email.com",
-                UserRole.Customer);
-        }
+        public User GetUser(int id) => _userRepository.GetUser(id);
     }
+
 }
 

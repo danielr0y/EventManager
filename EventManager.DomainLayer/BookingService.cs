@@ -4,48 +4,19 @@ namespace EventManager.DomainLayer
 {
     public class BookingService : IBookingService
     {
-        private readonly IEventService _eventService;
-        private readonly ITicketService _ticketService;
+        private readonly IBookingRepository _repository;
 
-        public BookingService(IEventService eventService, ITicketService ticketService)
+        public BookingService(IBookingRepository repository)
         {
-            if (eventService == null)
+            if (repository == null)
             {
-                throw new ArgumentNullException("eventService");
-            }
-            if (ticketService == null)
-            {
-                throw new ArgumentNullException("ticketService");
+                throw new ArgumentNullException("repository");
             }
 
-            this._eventService = eventService;
-            this._ticketService = ticketService;
+            this._repository = repository;
         }
 
-        public IEnumerable<Booking> Bookings
-        {
-            get
-            {
-                return new[]
-                {
-                    new Booking(
-                        100,
-                        _ticketService.GetTicket(100),
-                        2,
-                        400,
-                        new DateTime(2022,6,15,18,26,34),
-                        _eventService.GetEvent(100)
-                    ),
-                    new Booking(
-                        100,
-                        _ticketService.GetTicket(100),
-                        2,
-                        400,
-                        new DateTime(2022,6,14,18,26,34),
-                        _eventService.GetEvent(100)
-                    )};
-            }
-        }
+        public IEnumerable<Booking> GetBookingsBy(User user) => _repository.GetBookingsBy(user);
     }
 }
 

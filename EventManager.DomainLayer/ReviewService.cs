@@ -4,8 +4,9 @@ namespace EventManager.DomainLayer
     public class ReviewService : IReviewService
     {
         private readonly IUserService _userService;
+        private readonly IReviewRepository _repository;
 
-        public ReviewService(IUserService userService)
+        public ReviewService(IUserService userService, IReviewRepository reviewRepository)
         {
             if (userService == null)
             {
@@ -13,38 +14,10 @@ namespace EventManager.DomainLayer
             }
 
             this._userService = userService;
+            this._repository = reviewRepository ?? throw new ArgumentNullException(nameof(reviewRepository));
         }
 
-        public IEnumerable<Review> GetReviewsBy(Event Event)
-        {
-            return new[]
-            {
-                new Review(
-                    _userService.GetUser(100),
-                    new DateTime(),
-                    "Was sick, eh."
-                ),
-                new Review(
-                    _userService.GetUser(100),
-                    new DateTime(),
-                    "Was sick, eh."
-                ),
-                new Review(
-                    _userService.GetUser(100),
-                    new DateTime(),
-                    "Was sick, eh."
-                ),
-                new Review(
-                    _userService.GetUser(100),
-                    new DateTime(),
-                    "Was sick, eh."
-                ),
-                new Review(
-                    _userService.GetUser(100),
-                    new DateTime(),
-                    "Was sick, eh."
-                )};
-        }
+        public IEnumerable<Review> GetReviewsBy(Event Event) => this._repository.GetReviewsBy(Event);
     }
-}
 
+}
