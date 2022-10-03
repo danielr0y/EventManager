@@ -1,24 +1,21 @@
-using System;
-using System.Collections.Generic;
-
-namespace EventManager.Web.Models
+﻿namespace EventManager.Web.Models
 {
 	public class HomeViewModel : ILayoutViewModel
     {
 		public HomeViewModel(
-            ILayoutViewModel layout,
+            ILayoutViewModel layoutViewModel,
             SearchPartialViewModel search,
             EventsPartialViewModel upcomingEvents,
             EventsPartialViewModel cancelledEvents
         )
         {
-            IsAuthenticated = layout.IsAuthenticated;
-            IsAdmin = layout.IsAdmin;
-            Messages = layout.Messages;
-            NumberOfMessages = layout.NumberOfMessages;
+            IsAuthenticated = layoutViewModel.IsAuthenticated;
+            IsAdmin = layoutViewModel.IsAdmin;
+            Messages = layoutViewModel.Messages;
+            NumberOfMessages = layoutViewModel.NumberOfMessages;
+            LoginForm = layoutViewModel.LoginForm;
 
             Search = search;
-            LoginForm = layout.LoginForm;
 
             UpcomingEvents = upcomingEvents;
             CancelledEvents = cancelledEvents;
