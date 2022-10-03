@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 using EventManager.Web.Models;
@@ -25,7 +25,8 @@ public class BookingsController : Controller
                 new LayoutViewModel(
                     true,
                     true,
-                    Array.Empty<MessageViewModel>()
+                    Array.Empty<MessageViewModel>(),
+                    new LoginFormPartialViewModel()
                 ),
                 from booking in _bookingService.GetBookingsBy(_userService.CurrentUser)
                 select new BookingPreviewPartialViewModel(booking)));

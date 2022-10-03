@@ -16,6 +16,7 @@ namespace EventManager.Web.Models
             IsAdmin = layoutViewModel.IsAdmin;
             Messages = layoutViewModel.Messages;
             NumberOfMessages = layoutViewModel.NumberOfMessages;
+            LoginForm = layoutViewModel.LoginForm;
 
             Id = Event.Id;
             Name = Event.Name;
@@ -36,6 +37,7 @@ namespace EventManager.Web.Models
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
         public int NumberOfMessages { get; }
+        public LoginFormPartialViewModel LoginForm { get; }
 
         // this
         public int Id { get; }

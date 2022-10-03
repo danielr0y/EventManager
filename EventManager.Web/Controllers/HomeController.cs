@@ -22,7 +22,8 @@ public class HomeController : Controller
                 new LayoutViewModel(
                     true,
                     true,
-                    Array.Empty<MessageViewModel>()
+                    Array.Empty<MessageViewModel>(),
+                    new LoginFormPartialViewModel()
                 ),
                 new SearchPartialViewModel(
                     null,

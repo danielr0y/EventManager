@@ -11,6 +11,7 @@
             IsAdmin = layoutViewModel.IsAdmin;
             Messages = layoutViewModel.Messages;
             NumberOfMessages = layoutViewModel.NumberOfMessages;
+            LoginForm = layoutViewModel.LoginForm;
 
             Users = users;
         }
@@ -19,6 +20,7 @@
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
         public int NumberOfMessages { get; }
+        public LoginFormPartialViewModel LoginForm { get; }
 
         public IEnumerable<UserPreviewPartialViewModel> Users { get; }
     }

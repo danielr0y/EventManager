@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace EventManager.Web.Models
@@ -18,6 +18,7 @@ namespace EventManager.Web.Models
             NumberOfMessages = layout.NumberOfMessages;
 
             Search = search;
+            LoginForm = layout.LoginForm;
 
             UpcomingEvents = upcomingEvents;
             CancelledEvents = cancelledEvents;
@@ -27,6 +28,7 @@ namespace EventManager.Web.Models
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
         public int NumberOfMessages { get; }
+        public LoginFormPartialViewModel LoginForm { get; }
 
         // search box
         public SearchPartialViewModel Search { get; }

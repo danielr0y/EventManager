@@ -1,4 +1,4 @@
-﻿using EventManager.DomainLayer;
+using EventManager.DomainLayer;
 using EventManager.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +23,8 @@ namespace EventManager.Web.Controllers
                     new LayoutViewModel(
                         true,
                         true,
-                        Array.Empty<MessageViewModel>()
+                        Array.Empty<MessageViewModel>(),
+                        new LoginFormPartialViewModel()
                     ),
                     new SearchPartialViewModel(
                         search,
@@ -51,7 +52,8 @@ namespace EventManager.Web.Controllers
                         new[]
                         {
                             new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
-                        }
+                        },
+                        new LoginFormPartialViewModel()
                     ),
                     Event,
                     new TicketTableViewModel(
@@ -82,7 +84,8 @@ namespace EventManager.Web.Controllers
                         new[]
                         {
                             new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
-                        }
+                        },
+                        new LoginFormPartialViewModel()
                     ),
                     _eventService.Categories,
                     _eventService.Statuses,

@@ -1,4 +1,4 @@
-﻿using EventManager.Web.Models;
+using EventManager.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using EventManager.DomainLayer;
 
@@ -20,7 +20,8 @@ namespace EventManager.Web.Controllers
                     new LayoutViewModel(
                         true,
                         true,
-                        Array.Empty<MessageViewModel>()
+                        Array.Empty<MessageViewModel>(),
+                        new LoginFormPartialViewModel()
                     ),
                     from user in _userService.AllUsers
                     select new UserPreviewPartialViewModel(user)));

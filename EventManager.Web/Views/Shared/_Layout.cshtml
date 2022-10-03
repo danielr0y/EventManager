@@ -8,78 +8,72 @@
     <title>The Wheel of Brisbane Event Manager</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/unbootstrapify.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                <div class="navbar-nav flex-row gap-3">
-                    <a class="nav-link" href="@Url.Action("index", "home")">Home</a>
-                    <a class="nav-link" href="@Url.Action("index", "events")">Events</a>
-                    @if (Model.IsAuthenticated)
-                    {
-                        @if (Model.IsAdmin)
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+                    <div class="navbar-nav flex-row gap-3">
+                        <a class="nav-link" href="@Url.Action("index", "home")">Home</a>
+                        <a class="nav-link" href="@Url.Action("index", "events")">Events</a>
+                        @if (Model.IsAuthenticated)
                         {
-                            <a class="nav-link" href="@Url.Action("index", "Users")">Manage Users</a>
+                            @if (Model.IsAdmin)
+                            {
+                                <a class="nav-link" href="@Url.Action("index", "Users")">Manage Users</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link" href="@Url.Action("index", "Bookings")">My Bookings</a>
+                            }
                         }
                         else
                         {
-                            <a class="nav-link" href="@Url.Action("index", "Bookings")">My Bookings</a>
+                            <a class="nav-link" href="@Url.Action("register", "Users")}">Register</a>
                         }
-                    }
-                    else
-                    {
-                        <a class="nav-link" href="@Url.Action("register", "auth")}">Register</a>
-                    }
-                </div>
-                <button class="navbar-toggler" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#navbarlogin">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarlogin">
-                    @if (Model.IsAuthenticated)
-                    {
-                        <form action="@Url.Action("Logout", "Auth")" class="navbar-nav flex-row gap-1">
-                            <button class="btn btn-outline-primary rounded-pill px-5" type="submit">Logout</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form method="POST" action="@Url.Action("Login", "Auth")" class="navbar-nav flex-row gap-1">
-                            <input name="email" type="text" required
-                                   class="form-control" placeholder="email address">
-                            <input name="password" type="password" required
-                                   class="form-control" placeholder="password">
-                            <button class="btn btn-outline-success rounded-pill px-5" type="submit">Login</button>
-                        </form>
-                    }
-                </div>
-            </nav>
-            @if (Model.NumberOfMessages > 0)
-            {
-                <div>
-                @foreach (MessageViewModel message in Model.Messages)
+                    </div>
+                    <button class="navbar-toggler" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#navbarlogin">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse flex-grow-0" id="navbarlogin">
+                        @if (Model.IsAuthenticated)
+                        {
+                            <form action="@Url.Action("Logout", "Users")" class="navbar-nav flex-row gap-1">
+                                <button class="btn btn-outline-primary rounded-pill px-5" type="submit">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            @await Html.PartialAsync("_LoginForm", Model.LoginForm)
+                        }
+                    </div>
+                </nav>
+                @if (Model.NumberOfMessages > 0)
                 {
-                    <div class="alert alert-@message.Category">@message.Body</div>
+                    <div>
+                        @foreach (MessageViewModel message in Model.Messages)
+                        {
+                            <div class="alert alert-@message.Category">@message.Body</div>
+                        }
+                    </div>
                 }
-                </div>
-            }
-            @RenderSection("hero", false)
-        </header>
-        <main role="main" class="">
-            <header class="row mb-3">
-                <div class="col-md">
-                    <h1>@RenderSection("title", false)</h1>
-                </div>
-                @RenderSection("headerButtons", false)
+                @RenderSection("hero", false)
             </header>
-            @RenderBody()
-        </main>
-        <footer class="mt-5 text-center footer"><strong>not endorsed by or associated with</strong> The Wheel of Brisbane Pty Ltd</footer>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+            <main role="main" class="">
+                <header class="row mb-3">
+                    <div class="col-md">
+                        <h1>@RenderSection("title", false)</h1>
+                    </div>
+                    @RenderSection("headerButtons", false)
+                </header>
+                @RenderBody()
+            </main>
+            <footer class="mt-5 text-center footer"><strong>not endorsed by or associated with</strong> The Wheel of Brisbane Pty Ltd</footer>
+        </div>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
 </html>

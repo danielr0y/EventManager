@@ -13,6 +13,7 @@ namespace EventManager.Web.Models
             IsAdmin = layoutViewModel.IsAdmin;
             Messages = layoutViewModel.Messages;
             NumberOfMessages = layoutViewModel.NumberOfMessages;
+            LoginForm = layoutViewModel.LoginForm;
 
             SearchPartialViewModel = searchPartialViewModel;
 
@@ -23,6 +24,7 @@ namespace EventManager.Web.Models
         public bool IsAdmin { get; }
         public IEnumerable<MessageViewModel> Messages { get; }
         public int NumberOfMessages { get; }
+        public LoginFormPartialViewModel LoginForm { get; }
 
         // search box
         public SearchPartialViewModel SearchPartialViewModel { get; }
