@@ -5,8 +5,9 @@ namespace EventManager.Web
 {
     public class AspNetUserContextAdapter : IUserContext
     {
-        public bool IsAuthenticated => true;
-        public bool IsAdmin => false;
-        public int Id => 2;
+        private static readonly HttpContextAccessor Accessor = new HttpContextAccessor();
+        public bool IsAuthenticated => Accessor.HttpContext.User.Identity.IsAuthenticated;
+        public bool IsAdmin => Accessor.HttpContext.User.IsInRole(UserRole.Admin.ToString());
+        public User CurrentUser { get; }
     }
 }

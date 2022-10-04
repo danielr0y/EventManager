@@ -9,10 +9,12 @@ namespace EventManager.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly IEventService _eventService;
+    private readonly IUserContext _userContext;
 
-    public HomeController(IEventService eventService)
+    public HomeController(IEventService eventService, IUserContext userContext)
     {
         _eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
+        _userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
     }
 
     public IActionResult Index()
@@ -20,8 +22,7 @@ public class HomeController : Controller
         return View(
             new HomeViewModel(
                 new LayoutViewModel(
-                    true,
-                    true,
+                    _userContext,
                     Array.Empty<MessageViewModel>(),
                     new LoginFormPartialViewModel()
                 ),

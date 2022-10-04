@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using EventManager.DataLayer;
@@ -28,30 +27,25 @@ namespace EventManager.Web
         {
             var dbContext = new EventManagerContext(_configuration.ConnectionString);
             
-            var userRepository = new UserRepository(dbContext);
-            var eventRepository = new EventRepository(dbContext);
-            var ticketRepository = new TicketRepository(dbContext);
-            var bookingRepository = new BookingRepository(dbContext);
-            
-            var userService = new UserService(userRepository, _userContext);
-            var eventService = new EventService(eventRepository);
-            var ticketService = new TicketService(ticketRepository);
-            var bookingService = new BookingService(bookingRepository);
+            var userService = new UserService(new UserRepository(dbContext));
+            var eventService = new EventService(new EventRepository(dbContext));
+            var ticketService = new TicketService(new TicketRepository(dbContext));
+            var bookingService = new BookingService(new BookingRepository(dbContext));
 
 
             switch (type.Name)
             {
                 case nameof(HomeController):
-                    return new HomeController(eventService);
+                    return new HomeController(eventService, _userContext);
 
                 case nameof(EventsController):
-                    return new EventsController(eventService, ticketService);
+                    return new EventsController(eventService, ticketService, _userContext);
 
                 case nameof(BookingsController):
-                    return new BookingsController(bookingService, userService);
+                    return new BookingsController(bookingService, _userContext);
 
                 case nameof(UsersController):
-                    return new UsersController(userService);
+                    return new UsersController(userService, _userContext);
 
                 default: throw new InvalidOperationException($"Unknown controller {type}.");
             }

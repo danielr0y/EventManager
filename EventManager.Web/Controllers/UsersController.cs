@@ -7,10 +7,12 @@ namespace EventManager.Web.Controllers
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IUserContext _userContext;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IUserContext userContext)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
         }
 
         public IActionResult Index()
@@ -18,8 +20,7 @@ namespace EventManager.Web.Controllers
             return View(
                 new UsersViewModel(
                     new LayoutViewModel(
-                        true,
-                        true,
+                        _userContext,
                         Array.Empty<MessageViewModel>(),
                         new LoginFormPartialViewModel()
                     ),

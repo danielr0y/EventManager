@@ -8,11 +8,17 @@ namespace EventManager.Web.Controllers
     {
         private readonly IEventService _eventService;
         private readonly ITicketService _ticketService;
+        private readonly IUserContext _userContext;
 
-        public EventsController(IEventService eventService, ITicketService ticketService)
+        public EventsController(
+            IEventService eventService, 
+            ITicketService ticketService, 
+            IUserContext userContext
+        )
         {
             _eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
             _ticketService = ticketService ?? throw new ArgumentNullException(nameof(ticketService));
+            _userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
         }
 
         // GET: /<controller>/?search&category
@@ -21,8 +27,7 @@ namespace EventManager.Web.Controllers
             return View(
                 new AllEventsViewModel(
                     new LayoutViewModel(
-                        true,
-                        true,
+                        _userContext,
                         Array.Empty<MessageViewModel>(),
                         new LoginFormPartialViewModel()
                     ),
@@ -47,8 +52,7 @@ namespace EventManager.Web.Controllers
             return View(
                 new EventViewModel(
                     new LayoutViewModel(
-                        true,
-                        true,
+                        _userContext,
                         new[]
                         {
                             new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
@@ -79,8 +83,7 @@ namespace EventManager.Web.Controllers
             return View(
                 new EditEventViewModel(
                     new LayoutViewModel(
-                        true,
-                        true,
+                        _userContext,
                         new[]
                         {
                             new MessageViewModel(Color.info, "This route currently displays the same information regardless of which event was actually requested"),
