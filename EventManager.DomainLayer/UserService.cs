@@ -1,4 +1,4 @@
-using System;
+﻿
 namespace EventManager.DomainLayer
 {
     public class UserService : IUserService
@@ -12,6 +12,7 @@ namespace EventManager.DomainLayer
 
         public IEnumerable<User> AllUsers => _userRepository.AllUsers;
         public User GetUser(int id) => _userRepository.GetUser(id);
+        public User GetUser(string email) => _userRepository.GetUser(email);
     }
 
 }

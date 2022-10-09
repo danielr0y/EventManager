@@ -4,5 +4,6 @@ namespace EventManager.DomainLayer
     {
         IEnumerable<User> AllUsers { get; }
         User GetUser(int id);
+        User GetUser(string email);
     }
 }

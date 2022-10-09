@@ -42,7 +42,7 @@ namespace EventManager.Web
                     return new EventsController(eventService, ticketService, _userContext);
 
                 case nameof(BookingsController):
-                    return new BookingsController(bookingService, _userContext);
+                    return new BookingsController(bookingService, userService, _userContext);
 
                 case nameof(UsersController):
                     return new UsersController(userService, _userContext);

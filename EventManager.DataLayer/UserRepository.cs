@@ -16,4 +16,5 @@ public class UserRepository : IUserRepository
         select user;
 
     public User GetUser(int id) => _dbContext.Users.Single(user => user.Id == id);
+    public User GetUser(string email) => _dbContext.Users.Single(user => user.Email == email);
 }
